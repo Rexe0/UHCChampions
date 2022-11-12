@@ -24,6 +24,7 @@ public final class UHCChampions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new DragonSword(), this);
         getServer().getPluginManager().registerEvents(new AxeOfPerun(), this);
         getServer().getPluginManager().registerEvents(new WarlockPants(), this);
+        getServer().getPluginManager().registerEvents(new Cornucopia(), this);
         getServer().addRecipe(PlayerHead.goldenHeadCraft());
 
         new BukkitRunnable() {
