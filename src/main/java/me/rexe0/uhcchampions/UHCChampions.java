@@ -12,6 +12,7 @@ public final class UHCChampions extends JavaPlugin {
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new PlayerHead(), this);
         getServer().getPluginManager().registerEvents(new Exodus(), this);
+        getServer().getPluginManager().registerEvents(new DragonSword(), this);
         getServer().addRecipe(PlayerHead.goldenHeadCraft());
 
         new BukkitRunnable() {
@@ -21,10 +22,5 @@ public final class UHCChampions extends JavaPlugin {
                     Anduril.andurilCheck(player);
             }
         }.runTaskTimer(this, 20, 10);
-    }
-
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
     }
 }
