@@ -1,8 +1,10 @@
 package me.rexe0.uhcchampions;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -21,6 +23,7 @@ public final class UHCChampions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Exodus(), this);
         getServer().getPluginManager().registerEvents(new DragonSword(), this);
         getServer().getPluginManager().registerEvents(new AxeOfPerun(), this);
+        getServer().getPluginManager().registerEvents(new WarlockPants(), this);
         getServer().addRecipe(PlayerHead.goldenHeadCraft());
 
         new BukkitRunnable() {
@@ -42,5 +45,10 @@ public final class UHCChampions extends JavaPlugin {
             entity.setHealth(health);
             entity.damage(0.001);
         }
+    }
+    public static boolean isItem(ItemStack item, String name) {
+        if (item == null || item.getType() == Material.AIR) return false;
+        if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) return false;
+        return item.getItemMeta().getDisplayName().equals(name);
     }
 }

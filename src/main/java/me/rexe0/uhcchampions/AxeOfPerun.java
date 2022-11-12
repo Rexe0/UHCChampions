@@ -1,7 +1,6 @@
 package me.rexe0.uhcchampions;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,9 +22,7 @@ public class AxeOfPerun implements Listener {
         if (perunCooldown.contains(damager.getUniqueId())) return;
 
         ItemStack item = damager.getInventory().getItemInHand();
-        if (item == null || item.getType() == Material.AIR) return;
-        if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) return;
-        if (!item.getItemMeta().getDisplayName().equals(ChatColor.GREEN+"Axe of Perun")) return;
+        if (!UHCChampions.isItem(item, ChatColor.GREEN+"Axe of Perun")) return;
 
         LivingEntity entity = (LivingEntity) e.getEntity();
 

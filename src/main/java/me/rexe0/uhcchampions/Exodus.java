@@ -1,7 +1,6 @@
 package me.rexe0.uhcchampions;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -26,9 +25,7 @@ public class Exodus implements Listener {
             damager = (Player) e.getDamager();
         }
         ItemStack helm = damager.getInventory().getHelmet();
-        if (helm == null || helm.getType() == Material.AIR) return;
-        if (!helm.hasItemMeta() || !helm.getItemMeta().hasDisplayName()) return;
-        if (!helm.getItemMeta().getDisplayName().equals(ChatColor.GREEN+"Exodus")) return;
+        if (!UHCChampions.isItem(helm, ChatColor.GREEN+"Exodus")) return;
         damager.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 51, 1));
     }
 }
