@@ -3,6 +3,7 @@ package me.rexe0.uhcchampions;
 import me.rexe0.uhcchampions.skull.Skull;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -33,18 +34,24 @@ public class PlayerHead implements Listener {
     @EventHandler
     public void onClick(PlayerInteractEvent e) {
         if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+        if (e.getItem() == null) return;
         if (e.getItem().getType() != Material.SKULL_ITEM) return;
+        if (e.getItem().getItemMeta().hasDisplayName()) {
+            if (!e.getItem().getItemMeta().getDisplayName().endsWith("Head")) return;
+        }
         ItemStack item = e.getItem();
         Player player = e.getPlayer();
 
-        if (item.getItemMeta().getDisplayName().equals(ChatColor.GOLD+"Golden Head")) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 80, 2));
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 320, 1));
-        } else {
+        if (!item.getItemMeta().hasDisplayName() || !item.getItemMeta().getDisplayName().equals(ChatColor.GOLD+"Golden Head")) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 80, 1));
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 320, 1));
+        } else {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 80, 2));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 320, 1));
         }
+        player.playSound(player.getLocation(), Sound.BURP, 1, 2);
         player.getInventory().setItemInHand(new ItemStack(Material.AIR));
+        e.setCancelled(true);
     }
 
     @EventHandler
@@ -66,7 +73,7 @@ public class PlayerHead implements Listener {
         ShapedRecipe recipe = new ShapedRecipe(item);
         recipe.shape("%%%", "%$%", "%%%");
         recipe.setIngredient('%', Material.GOLD_INGOT);
-        recipe.setIngredient('$', Material.SKULL_ITEM);
+        recipe.setIngredient('$', Material.SKULL_ITEM, 3);
         return recipe;
     }
 }
