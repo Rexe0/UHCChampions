@@ -15,6 +15,7 @@ public class Exodus implements Listener {
     @EventHandler
     public void onHit(EntityDamageByEntityEvent e) {
         Player damager = null;
+        if (!(e.getEntity() instanceof Player)) return;
         if (e.getDamager() instanceof Projectile) {
             Projectile proj = (Projectile) e.getDamager();
             if (proj.getShooter() != null && proj.getShooter() instanceof Player) {
@@ -28,6 +29,6 @@ public class Exodus implements Listener {
         if (helm == null || helm.getType() == Material.AIR) return;
         if (!helm.hasItemMeta() || !helm.getItemMeta().hasDisplayName()) return;
         if (!helm.getItemMeta().getDisplayName().equals(ChatColor.GREEN+"Exodus")) return;
-        damager.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 50, 0));
+        damager.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 51, 1));
     }
 }
