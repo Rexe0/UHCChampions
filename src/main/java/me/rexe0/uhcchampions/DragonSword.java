@@ -17,7 +17,7 @@ public class DragonSword implements Listener {
     @EventHandler
     public void onHit(CraftItemEvent e) {
         ItemStack result = e.getRecipe().getResult();
-        if (!UHCChampions.isItem(result, ChatColor.GREEN+"Warlock Pants")) return;
+        if (!UHCChampions.isItem(result, ChatColor.GREEN+"Dragon Sword")) return;
         ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(ChatColor.GREEN+"Dragon Sword");
