@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -44,6 +45,15 @@ public class PlayerHead implements Listener {
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 320, 1));
         }
         player.getInventory().setItemInHand(new ItemStack(Material.AIR));
+    }
+
+    @EventHandler
+    public void onEat(PlayerItemConsumeEvent e) {
+        if (e.getItem().getType() != Material.GOLDEN_APPLE) return;
+        if (e.getItem().getDurability() != 0) return;
+        Player player = e.getPlayer();
+
+        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2), true);
     }
 
     public static ShapedRecipe goldenHeadCraft() {
