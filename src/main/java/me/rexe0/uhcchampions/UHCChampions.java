@@ -11,6 +11,7 @@ public final class UHCChampions extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new PlayerHead(), this);
+        getServer().getPluginManager().registerEvents(new Exodus(), this);
         getServer().addRecipe(PlayerHead.goldenHeadCraft());
 
         new BukkitRunnable() {
