@@ -25,6 +25,7 @@ public final class UHCChampions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new AxeOfPerun(), this);
         getServer().getPluginManager().registerEvents(new WarlockPants(), this);
         getServer().getPluginManager().registerEvents(new Cornucopia(), this);
+        getServer().getPluginManager().registerEvents(new ChaliceOfGrace(), this);
         getServer().addRecipe(PlayerHead.goldenHeadCraft());
 
         new BukkitRunnable() {
@@ -37,6 +38,9 @@ public final class UHCChampions extends JavaPlugin {
     }
 
     public static void dealTrueDamage(LivingEntity entity, double amount) {
+        dealTrueDamage(entity,amount, null);
+    }
+    public static void dealTrueDamage(LivingEntity entity, double amount, LivingEntity damager) {
         double health = entity.getHealth();
         health -= amount;
         if (health <= 0) {
@@ -44,7 +48,7 @@ public final class UHCChampions extends JavaPlugin {
             entity.damage(20);
         } else {
             entity.setHealth(health);
-            entity.damage(0.001);
+            entity.damage(0.001, damager);
         }
     }
     public static boolean isItem(ItemStack item, String name) {
