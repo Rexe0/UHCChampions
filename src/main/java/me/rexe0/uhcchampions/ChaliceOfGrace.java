@@ -50,9 +50,8 @@ public class ChaliceOfGrace implements Listener {
         Player player = (Player) e.getEntity();
         if (!chaliceEffect.contains(player.getUniqueId()) || e.isCancelled()) return;
 
-        double damage = e.getFinalDamage();
-        damage = Math.min(player.getMaxHealth()*0.05f, damage);
-        e.setDamage(0.001);
-        UHCChampions.dealTrueDamage(player, damage);
+        double damage = e.getDamage();
+        damage = Math.min(player.getMaxHealth()*0.2f, damage);
+        e.setDamage(damage);
     }
 }
