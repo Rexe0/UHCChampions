@@ -3,6 +3,7 @@ package me.rexe0.uhcchampions;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -46,12 +47,17 @@ public class ChaliceOfGrace implements Listener {
 
     @EventHandler
     public void onHit(EntityDamageByEntityEvent e) {
-        if (!(e.getEntity() instanceof Player)) return;
+        if (!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof LivingEntity)) return;
         Player player = (Player) e.getEntity();
         if (!chaliceEffect.contains(player.getUniqueId()) || e.isCancelled()) return;
 
-        double damage = e.getDamage();
-        damage = Math.min(player.getMaxHealth()*0.2f, damage);
-        e.setDamage(damage);
+        double damage = e.getFinalDamage();
+        e.setDamage(0.1);
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                UHCChampions.dealTrueDamage(player, Math.min(player.getMaxHealth()*0.05f, damage));
+            }
+        }.runTaskLater(UHCChampions.getInstance(), 1);
     }
 }
