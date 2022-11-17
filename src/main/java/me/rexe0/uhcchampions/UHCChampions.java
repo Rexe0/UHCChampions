@@ -5,10 +5,16 @@ import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Iterator;
+import java.util.List;
+
 public final class UHCChampions extends JavaPlugin {
+
+    private List<Recipe> recipes;
     private static UHCChampions instance;
 
     public static UHCChampions getInstance() {
@@ -28,7 +34,8 @@ public final class UHCChampions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ChaliceOfGrace(), this);
         getServer().getPluginManager().registerEvents(new DeathScythe(), this);
         getServer().getPluginManager().registerEvents(new AnvilEvent(), this);
-        getServer().addRecipe(PlayerHead.goldenHeadCraft());
+        recipes.add(PlayerHead.goldenHeadCraft());
+        recipes.forEach((r) -> getServer().addRecipe(r));
 
         new BukkitRunnable() {
             @Override
@@ -39,6 +46,18 @@ public final class UHCChampions extends JavaPlugin {
         }.runTaskTimer(this, 20, 10);
     }
 
+    @Override
+    public void onDisable() {
+        Iterator<Recipe> iterator = getServer().recipeIterator();
+        for (Recipe recipe : recipes) {
+            ItemStack item = recipe.getResult();
+            while (iterator.hasNext()) {
+                Recipe rep = iterator.next();
+                if (rep == null) continue;
+                if (rep.getResult().isSimilar(item)) iterator.remove();
+            }
+        }
+    }
     public static void dealTrueDamage(LivingEntity entity, double amount) {
         dealTrueDamage(entity,amount, null);
     }
