@@ -50,7 +50,14 @@ public class PlayerHead implements Listener {
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 320, 1));
         }
         player.playSound(player.getLocation(), Sound.BURP, 1, 2);
-        player.getInventory().setItemInHand(new ItemStack(Material.AIR));
+        int amount = item.getAmount();
+        amount--;
+        if (amount <= 0) {
+            player.getInventory().setItemInHand(new ItemStack(Material.AIR));
+        } else {
+            item.setAmount(amount);
+            player.getInventory().setItemInHand(item);
+        }
         e.setCancelled(true);
     }
 
