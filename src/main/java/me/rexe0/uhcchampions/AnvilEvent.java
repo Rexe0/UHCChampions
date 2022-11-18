@@ -27,6 +27,7 @@ public class AnvilEvent implements Listener {
             if (e.getRawSlot() != 0) return;
             item = e.getCursor();
         }
+        if (item == null || item.getType() == Material.ENCHANTED_BOOK) return;
 
         if (anvilCheck(item)) {
             e.setCancelled(true);
@@ -43,6 +44,8 @@ public class AnvilEvent implements Listener {
         if (!(inv instanceof AnvilInventory)) return;
         if (!e.getRawSlots().contains(0)) return;
         ItemStack item = e.getOldCursor();
+
+        if (item == null || item.getType() == Material.ENCHANTED_BOOK) return;
 
         if (anvilCheck(item)) {
             e.setCancelled(true);
