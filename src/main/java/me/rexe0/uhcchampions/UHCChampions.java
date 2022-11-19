@@ -37,6 +37,8 @@ public final class UHCChampions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new AnvilEvent(), this);
         getServer().getPluginManager().registerEvents(new Terminator(), this);
         getServer().getPluginManager().registerEvents(new BlazeSpawn(), this);
+        getServer().getPluginManager().registerEvents(new ProjectileIndicator(), this);
+        getServer().getPluginManager().registerEvents(new LavaPrevention(), this);
         recipes = new ArrayList<>();
         recipes.add(PlayerHead.goldenHeadCraft());
         recipes.forEach((r) -> getServer().addRecipe(r));
