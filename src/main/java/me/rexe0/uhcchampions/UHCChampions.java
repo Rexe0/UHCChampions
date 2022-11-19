@@ -41,6 +41,7 @@ public final class UHCChampions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BlazeSpawn(), this);
         getServer().getPluginManager().registerEvents(new ProjectileIndicator(), this);
         getServer().getPluginManager().registerEvents(new LavaPrevention(), this);
+        getServer().getPluginManager().registerEvents(new CompassTracker(), this);
         recipes = new ArrayList<>();
         recipes.add(PlayerHead.goldenHeadCraft());
         recipes.forEach((r) -> getServer().addRecipe(r));
@@ -48,8 +49,10 @@ public final class UHCChampions extends JavaPlugin {
         new BukkitRunnable() {
             @Override
             public void run() {
-                for (Player player : Bukkit.getOnlinePlayers())
+                for (Player player : Bukkit.getOnlinePlayers()) {
                     Anduril.andurilCheck(player);
+                    CompassTracker.run();
+                }
             }
         }.runTaskTimer(this, 20, 10);
     }
