@@ -1,5 +1,8 @@
 package me.rexe0.uhcchampions.items;
 
+import com.gmail.val59000mc.game.GameManager;
+import com.gmail.val59000mc.players.PlayerManager;
+import com.gmail.val59000mc.players.UhcPlayer;
 import me.rexe0.uhcchampions.skull.Skull;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -42,12 +45,29 @@ public class PlayerHead implements Listener {
         ItemStack item = e.getItem();
         Player player = e.getPlayer();
 
+        PlayerManager manager = GameManager.getGameManager().getPlayerManager();
+        UhcPlayer uhcPlayer = manager.getUhcPlayer(player);
+
         if (!item.getItemMeta().hasDisplayName() || !item.getItemMeta().getDisplayName().equals(ChatColor.GOLD+"Golden Head")) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 80, 1));
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 320, 1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 320, 1), true);
+
+            for (UhcPlayer p : manager.getPlayersList()) {
+                if (p.equals(uhcPlayer)) continue;
+                if (!p.isInTeamWith(uhcPlayer)) continue;
+                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2));
+                p.sendMessage(ChatColor.GREEN+player.getName()+" ate a "+ChatColor.GOLD+"Golden Head"+ChatColor.GREEN+" which gave you Regeneration III for 5 seconds.");
+            }
         } else {
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 80, 2));
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 320, 1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 320, 1), true);
+
+            for (UhcPlayer p : manager.getPlayersList()) {
+                if (p.equals(uhcPlayer)) continue;
+                if (!p.isInTeamWith(uhcPlayer)) continue;
+                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 80, 2));
+                p.sendMessage(ChatColor.GREEN+player.getName()+" ate a "+ChatColor.RED+"Player Head"+ChatColor.GREEN+" which gave you Regeneration III for 4 seconds.");
+            }
         }
         player.playSound(player.getLocation(), Sound.BURP, 1, 2);
         int amount = item.getAmount();
