@@ -1,5 +1,6 @@
-package me.rexe0.uhcchampions;
+package me.rexe0.uhcchampions.items;
 
+import me.rexe0.uhcchampions.UHCChampions;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagInt;
 import net.minecraft.server.v1_8_R3.NBTTagList;

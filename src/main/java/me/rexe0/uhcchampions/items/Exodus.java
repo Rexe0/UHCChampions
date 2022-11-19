@@ -1,5 +1,6 @@
-package me.rexe0.uhcchampions;
+package me.rexe0.uhcchampions.items;
 
+import me.rexe0.uhcchampions.UHCChampions;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;

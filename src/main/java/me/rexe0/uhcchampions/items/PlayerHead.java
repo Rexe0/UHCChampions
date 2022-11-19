@@ -1,4 +1,4 @@
-package me.rexe0.uhcchampions;
+package me.rexe0.uhcchampions.items;
 
 import me.rexe0.uhcchampions.skull.Skull;
 import org.bukkit.ChatColor;

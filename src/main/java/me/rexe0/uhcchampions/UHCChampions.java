@@ -1,5 +1,7 @@
 package me.rexe0.uhcchampions;
 
+import me.rexe0.uhcchampions.items.Terminator;
+import me.rexe0.uhcchampions.items.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
