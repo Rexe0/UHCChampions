@@ -6,7 +6,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -30,7 +32,7 @@ public class LavaPrevention implements Listener {
         if (e.getCause() != EntityDamageEvent.DamageCause.LAVA
                 && e.getCause() != EntityDamageEvent.DamageCause.FIRE
                 && e.getCause() != EntityDamageEvent.DamageCause.FIRE_TICK) return;
-        if (e.getEntity().getTicksLived() < 20) {
+        if (e.getEntity().getTicksLived() < 400) {
             e.setCancelled(true);
             return;
         }
