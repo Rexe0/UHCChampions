@@ -14,7 +14,7 @@ public class ProjectileIndicator implements Listener {
         if (!(e.getEntity() instanceof Player) || !(((Arrow)e.getDamager()).getShooter() instanceof Player)) return;
         Player player = (Player) ((Arrow)e.getDamager()).getShooter();
         Player entity = (Player) e.getEntity();
-        double damage = Math.round(e.getFinalDamage()*100)/100f;
+        double damage = Math.floor(e.getFinalDamage()*100)/100f;
         player.sendMessage(ChatColor.AQUA+"Hit "+ChatColor.RED+entity.getName()+ChatColor.AQUA+" for "+damage+".");
     }
 
