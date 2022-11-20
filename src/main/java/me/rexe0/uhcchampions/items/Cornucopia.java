@@ -21,7 +21,7 @@ public class Cornucopia implements Listener {
         if (!UHCChampions.isItem(item, ChatColor.GREEN+"Cornucopia")) return;
         Player player = e.getPlayer();
 
-        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 200, 0));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 200, 1));
         player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 1200, 0));
 
         player.playSound(player.getLocation(), Sound.BURP, 1, 2);
