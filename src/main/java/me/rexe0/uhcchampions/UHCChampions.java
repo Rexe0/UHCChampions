@@ -42,6 +42,7 @@ public final class UHCChampions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ProjectileIndicator(), this);
         getServer().getPluginManager().registerEvents(new LavaPrevention(), this);
         getServer().getPluginManager().registerEvents(new CompassTracker(), this);
+        getServer().getPluginManager().registerEvents(new VoidGrimoire(), this);
         recipes = new ArrayList<>();
         recipes.add(PlayerHead.goldenHeadCraft());
         recipes.forEach((r) -> getServer().addRecipe(r));
