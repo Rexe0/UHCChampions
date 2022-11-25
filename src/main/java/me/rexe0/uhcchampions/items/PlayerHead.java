@@ -3,6 +3,7 @@ package me.rexe0.uhcchampions.items;
 import com.gmail.val59000mc.game.GameManager;
 import com.gmail.val59000mc.players.PlayerManager;
 import com.gmail.val59000mc.players.UhcPlayer;
+import me.rexe0.uhcchampions.UHCChampions;
 import me.rexe0.uhcchampions.skull.Skull;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -19,8 +20,13 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.HashSet;
+import java.util.UUID;
 
 public class PlayerHead implements Listener {
+    private static final HashSet<UUID> headCooldown = new HashSet<>();
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
@@ -42,31 +48,45 @@ public class PlayerHead implements Listener {
         if (e.getItem().getItemMeta().hasDisplayName()) {
             if (!e.getItem().getItemMeta().getDisplayName().endsWith("Head")) return;
         }
+
         ItemStack item = e.getItem();
         Player player = e.getPlayer();
+
+
+        if (headCooldown.contains(player.getUniqueId())) return;
+
+        headCooldown.add(player.getUniqueId());
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                headCooldown.remove(player.getUniqueId());
+            }
+        }.runTaskLater(UHCChampions.getInstance(), 20);
 
         PlayerManager manager = GameManager.getGameManager().getPlayerManager();
         UhcPlayer uhcPlayer = manager.getUhcPlayer(player);
 
         if (!item.getItemMeta().hasDisplayName() || !item.getItemMeta().getDisplayName().equals(ChatColor.GOLD+"Golden Head")) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 320, 1), true);
+            player.sendMessage(ChatColor.GREEN+"You ate a "+ChatColor.RED+"Player Head"+ChatColor.GREEN+" which gave you Regeneration II for 5 seconds and Speed II for 26 seconds.");
+
+            for (UhcPlayer p : manager.getPlayersList()) {
+                if (p.equals(uhcPlayer)) continue;
+                if (!p.isInTeamWith(uhcPlayer)) continue;
+                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
+                p.sendMessage(ChatColor.GREEN+player.getName()+" ate a "+ChatColor.RED+"Player Head"+ChatColor.GREEN+" which gave you Regeneration II for 5 seconds.");
+            }
+        } else {
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2));
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 320, 1), true);
+            player.sendMessage(ChatColor.GREEN+"You ate a "+ChatColor.GOLD+"Golden Head"+ChatColor.GREEN+" which gave you Regeneration III for 5 seconds and Speed II for 26 seconds.");
 
             for (UhcPlayer p : manager.getPlayersList()) {
                 if (p.equals(uhcPlayer)) continue;
                 if (!p.isInTeamWith(uhcPlayer)) continue;
                 player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2));
                 p.sendMessage(ChatColor.GREEN+player.getName()+" ate a "+ChatColor.GOLD+"Golden Head"+ChatColor.GREEN+" which gave you Regeneration III for 5 seconds.");
-            }
-        } else {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 80, 2));
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 320, 1), true);
-
-            for (UhcPlayer p : manager.getPlayersList()) {
-                if (p.equals(uhcPlayer)) continue;
-                if (!p.isInTeamWith(uhcPlayer)) continue;
-                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 80, 2));
-                p.sendMessage(ChatColor.GREEN+player.getName()+" ate a "+ChatColor.RED+"Player Head"+ChatColor.GREEN+" which gave you Regeneration III for 4 seconds.");
             }
         }
         player.playSound(player.getLocation(), Sound.BURP, 1, 2);
