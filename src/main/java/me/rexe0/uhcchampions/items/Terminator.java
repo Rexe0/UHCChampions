@@ -56,7 +56,7 @@ public class Terminator implements Listener {
         if (!damager.hasMetadata("terminatorArrow")) return;
 
         int arrowsInside = Math.min(4,  ((CraftLivingEntity) entity).getHandle().getDataWatcher().getByte(9));
-        e.setDamage(e.getDamage()+(arrowsInside*2));
+        e.setDamage(e.getDamage()+(arrowsInside*5));
 
         ((CraftLivingEntity)entity).getHandle().getDataWatcher().watch(9, (byte) 0);
 
@@ -65,7 +65,7 @@ public class Terminator implements Listener {
         PacketPlayOutWorldParticles particlePacket = new PacketPlayOutWorldParticles(EnumParticle.BLOCK_CRACK, true, (float) location.getX(), (float) (location.getY()), (float) location.getZ(), 0.5f, 0.5f, 0.5f, 0f, 200, 152);
 
         for (Player p : location.getWorld().getPlayers()) {
-            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(particlePacket);
+            ((CraftPlayer) p).getHandle().playerConnection.sendPacket(particlePacket);
         }
     }
 }
