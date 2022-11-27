@@ -33,9 +33,9 @@ public class AxeOfPerun implements Listener {
             public void run() {
                 perunCooldown.remove(damager.getUniqueId());
             }
-        }.runTaskLater(UHCChampions.getInstance(), 160);
+        }.runTaskLater(UHCChampions.getInstance(), 100);
 
         entity.getWorld().strikeLightningEffect(entity.getEyeLocation());
-        UHCChampions.dealTrueDamage(entity, 2);
+        UHCChampions.dealTrueDamage(entity, 4);
     }
 }
