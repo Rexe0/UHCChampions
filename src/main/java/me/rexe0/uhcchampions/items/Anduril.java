@@ -11,7 +11,7 @@ public class Anduril {
     public static void andurilCheck(Player player) {
         ItemStack item = player.getItemInHand();
         if (!UHCChampions.isItem(item, ChatColor.GREEN+"Anduril")) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20, 0));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20, 0));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 30, 0));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 30, 0));
     }
 }
