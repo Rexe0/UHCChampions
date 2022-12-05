@@ -48,7 +48,7 @@ public class MobChanges implements Listener {
         }
         if (entity instanceof Skeleton) {
             for (ItemStack item : e.getDrops())
-                if (item.getType() == Material.BOW && rand.nextInt(5) == 0) item.setDurability((short)0);
+                if (item.getType() == Material.BOW && rand.nextInt(3) == 0) item.setDurability((short)0);
             return;
         }
         if (entity instanceof Ghast) {
