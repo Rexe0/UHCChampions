@@ -37,6 +37,7 @@ public class CompassTracker implements Listener {
         for (UhcPlayer p : manager.getPlayerManager().getPlayersList()) {
             if (p.equals(player)) continue;
             if (p.isDeath()) continue;
+            if (!p.isOnline()) continue;
             if (p.isInTeamWith(player)) continue;
             if (!p.getPlayer().getWorld().equals(player.getPlayer().getWorld())) continue;
             if (p.getPlayer().getLocation().distanceSquared(player.getPlayer().getLocation()) > distance) continue;
