@@ -1,5 +1,6 @@
 package me.rexe0.uhcchampions.items;
 
+import com.gmail.val59000mc.exceptions.UhcPlayerNotOnlineException;
 import com.gmail.val59000mc.game.GameManager;
 import com.gmail.val59000mc.players.PlayerManager;
 import com.gmail.val59000mc.players.UhcPlayer;
@@ -71,22 +72,30 @@ public class PlayerHead implements Listener {
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 320, 1), true);
             player.sendMessage(ChatColor.GREEN+"You ate a "+ChatColor.RED+"Player Head"+ChatColor.GREEN+" which gave you Regeneration II for 5 seconds and Speed II for 26 seconds.");
 
-            for (UhcPlayer p : manager.getPlayersList()) {
-                if (p.equals(uhcPlayer)) continue;
-                if (!p.isInTeamWith(uhcPlayer)) continue;
-                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
-                p.sendMessage(ChatColor.GREEN+player.getName()+" ate a "+ChatColor.RED+"Player Head"+ChatColor.GREEN+" which gave you Regeneration II for 5 seconds.");
+            try {
+                for (UhcPlayer p : manager.getPlayersList()) {
+                    if (p.equals(uhcPlayer)) continue;
+                    if (!p.isInTeamWith(uhcPlayer)) continue;
+                    p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
+                    p.sendMessage(ChatColor.GREEN + player.getName() + " ate a " + ChatColor.RED + "Player Head" + ChatColor.GREEN + " which gave you Regeneration II for 5 seconds.");
+                }
+            } catch (UhcPlayerNotOnlineException ex) {
+                // Ignore
             }
         } else {
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2));
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 320, 1), true);
             player.sendMessage(ChatColor.GREEN+"You ate a "+ChatColor.GOLD+"Golden Head"+ChatColor.GREEN+" which gave you Regeneration III for 5 seconds and Speed II for 26 seconds.");
 
-            for (UhcPlayer p : manager.getPlayersList()) {
-                if (p.equals(uhcPlayer)) continue;
-                if (!p.isInTeamWith(uhcPlayer)) continue;
-                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2));
-                p.sendMessage(ChatColor.GREEN+player.getName()+" ate a "+ChatColor.GOLD+"Golden Head"+ChatColor.GREEN+" which gave you Regeneration III for 5 seconds.");
+            try {
+                for (UhcPlayer p : manager.getPlayersList()) {
+                    if (p.equals(uhcPlayer)) continue;
+                    if (!p.isInTeamWith(uhcPlayer)) continue;
+                    p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2));
+                    p.sendMessage(ChatColor.GREEN + player.getName() + " ate a " + ChatColor.GOLD + "Golden Head" + ChatColor.GREEN + " which gave you Regeneration III for 5 seconds.");
+                }
+            } catch (UhcPlayerNotOnlineException ex) {
+                // Ignore
             }
         }
         player.playSound(player.getLocation(), Sound.BURP, 1, 2);
