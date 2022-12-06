@@ -19,8 +19,7 @@ public class DeathScythe implements Listener {
 
     @EventHandler
     public void onHit(EntityDamageByEntityEvent e) {
-//        if (!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof Player)) return;
-        if (!(e.getDamager() instanceof Player)) return;
+        if (!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof Player)) return;
         Player damager = (Player) e.getDamager();
         if (scytheCooldown.contains(damager.getUniqueId())) return;
 
