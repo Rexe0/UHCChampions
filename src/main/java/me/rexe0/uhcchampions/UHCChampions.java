@@ -57,6 +57,7 @@ public final class UHCChampions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ScoreDisplay(), this);
         getServer().getPluginManager().registerEvents(new ScoreListener(), this);
         getServer().getPluginManager().registerEvents(new ArtemisBow(), this);
+        getServer().getPluginManager().registerEvents(new Excalibur(), this);
         recipes = new ArrayList<>();
         recipes.add(PlayerHead.goldenHeadCraft());
         recipes.forEach((r) -> getServer().addRecipe(r));
@@ -92,6 +93,7 @@ public final class UHCChampions extends JavaPlugin {
         dealTrueDamage(entity,amount, null);
     }
     public static void dealTrueDamage(LivingEntity entity, double amount, LivingEntity damager) {
+        if (entity.isDead()) return;
         double health = entity.getHealth();
         health -= amount;
         if (health <= 0) {
