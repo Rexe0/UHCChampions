@@ -2,6 +2,9 @@ package me.rexe0.uhcchampions;
 
 import me.rexe0.uhcchampions.items.Terminator;
 import me.rexe0.uhcchampions.items.*;
+import me.rexe0.uhcchampions.score.ScoreDisplay;
+import me.rexe0.uhcchampions.score.ScoreFile;
+import me.rexe0.uhcchampions.score.ScoreListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
@@ -27,6 +30,9 @@ public final class UHCChampions extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        ScoreFile.getInstance().fileCheck();
+        ScoreFile.getInstance().loadData();
+
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new PlayerHead(), this);
         getServer().getPluginManager().registerEvents(new Exodus(), this);
@@ -48,6 +54,8 @@ public final class UHCChampions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new LightApple(), this);
         getServer().getPluginManager().registerEvents(new ModularBow(), this);
         getServer().getPluginManager().registerEvents(new StrengthNerf(), this);
+        getServer().getPluginManager().registerEvents(new ScoreDisplay(), this);
+        getServer().getPluginManager().registerEvents(new ScoreListener(), this);
         recipes = new ArrayList<>();
         recipes.add(PlayerHead.goldenHeadCraft());
         recipes.forEach((r) -> getServer().addRecipe(r));
@@ -66,6 +74,8 @@ public final class UHCChampions extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        ScoreFile.getInstance().saveData();
+
         Iterator<Recipe> iterator = getServer().recipeIterator();
         for (Recipe recipe : recipes) {
             ItemStack item = recipe.getResult();
