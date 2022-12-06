@@ -22,7 +22,9 @@ public class MobChanges implements Listener {
             Location location = e.getEntity().getLocation();
             e.setCancelled(true);
             if (rand.nextInt(3) == 0) {
-                ((Skeleton)location.getWorld().spawnEntity(location, EntityType.SKELETON)).setSkeletonType(Skeleton.SkeletonType.WITHER);
+                Skeleton skeleton = ((Skeleton)location.getWorld().spawnEntity(location, EntityType.SKELETON));
+                skeleton.setSkeletonType(Skeleton.SkeletonType.WITHER);
+                skeleton.getEquipment().setItemInHand(new ItemStack(Material.STONE_SWORD));
                 return;
             }
             location.getWorld().spawnEntity(location, EntityType.BLAZE);
@@ -47,8 +49,13 @@ public class MobChanges implements Listener {
             return;
         }
         if (entity instanceof Skeleton) {
-            for (ItemStack item : e.getDrops())
-                if (item.getType() == Material.BOW && rand.nextInt(3) == 0) item.setDurability((short)0);
+            Skeleton skeleton = (Skeleton) entity;
+            if (skeleton.getSkeletonType() == Skeleton.SkeletonType.WITHER) {
+                if (rand.nextInt(5) == 0) entity.getWorld().dropItemNaturally(entity.getLocation(), new ItemStack(Material.SKULL_ITEM, 1, (short) 1));
+            } else {
+                for (ItemStack item : e.getDrops())
+                    if (item.getType() == Material.BOW && rand.nextInt(2) == 0) item.setDurability((short) 0);
+            }
             return;
         }
         if (entity instanceof Ghast) {
