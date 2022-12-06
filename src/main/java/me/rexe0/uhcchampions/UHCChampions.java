@@ -65,6 +65,7 @@ public final class UHCChampions extends JavaPlugin {
             public void run() {
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     Anduril.andurilCheck(player);
+                    BarbarianChestplate.barbarianCheck(player);
                     CompassTracker.run();
                     FlaskOfCleansing.flaskCheck();
                 }
