@@ -12,16 +12,11 @@ import java.util.Map;
 import java.util.UUID;
 
 public class ScoreFile {
-    private static ScoreFile instance = new ScoreFile();
 
-    public static ScoreFile getInstance() {
-        return instance;
-    }
+    private static final File file = new File(UHCChampions.getInstance().getDataFolder(), File.separator + "playerdata" + File.separator + "score.yml");
+    private static Map<UUID, PlayerData> playerData = new HashMap<>();
 
-    private final File file = new File(UHCChampions.getInstance().getDataFolder(), File.separator + "playerdata" + File.separator + "score.yml");
-    private Map<UUID, Integer> playerScores = new HashMap<>();
-
-    public void fileCheck() {
+    public static void fileCheck() {
         FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
 
         if (!file.exists()) {
@@ -34,13 +29,14 @@ public class ScoreFile {
         }
     }
 
-    public void saveData() {
+    public static void saveData() {
         FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
 
         if (file.exists()) {
             try {
-                for (Map.Entry<UUID, Integer> entry : playerScores.entrySet()) {
-                    configuration.set("Data."+entry.getKey().toString(), entry.getValue());
+                for (Map.Entry<UUID, PlayerData> entry : playerData.entrySet()) {
+                    configuration.set("Data."+entry.getKey().toString()+".Kills", entry.getValue().getKills());
+                    configuration.set("Data."+entry.getKey().toString()+".Wins", entry.getValue().getWins());
                 }
                 configuration.save(file);
             } catch (IOException e) {
@@ -49,21 +45,19 @@ public class ScoreFile {
         }
     }
 
-    public void loadData() {
+    public static void loadData() {
         FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
 
         for (String str : configuration.getConfigurationSection("Data").getKeys(false)) {
-            playerScores.put(UUID.fromString(str), configuration.getInt("Data." + str));
+            UUID uuid = UUID.fromString(str);
+            int kills = configuration.getInt("Data."+str+".Kills");
+            int wins = configuration.getInt("Data."+str+".Wins");
+
+            playerData.put(uuid, new PlayerData(uuid, wins, kills));
         }
     }
 
-    public void addScore(Player player, int score) {
-        UUID uuid = player.getUniqueId();
-        playerScores.putIfAbsent(uuid, 0);
-        playerScores.put(uuid, playerScores.get(uuid)+score);
-    }
-    public int getScore(Player player) {
-        playerScores.putIfAbsent(player.getUniqueId(), 0);
-        return playerScores.get(player.getUniqueId());
+    public static PlayerData getPlayerData(Player player) {
+        return playerData.get(player.getUniqueId());
     }
 }

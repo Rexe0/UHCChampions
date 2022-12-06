@@ -13,14 +13,14 @@ public class ScoreListener implements Listener {
     public void onKill(PlayerDeathEvent e) {
         Player killer = e.getEntity().getKiller();
         if (killer == null) return;
-        ScoreFile.getInstance().addScore(killer, 1);
+        ScoreFile.getPlayerData(killer).addKill();
     }
 
     @EventHandler
     public void onWin(UhcWinEvent e) throws UhcPlayerNotOnlineException {
         for (UhcPlayer p : e.getWinners()) {
             if (!p.isOnline()) continue;
-            ScoreFile.getInstance().addScore(p.getPlayer(), 5);
+            ScoreFile.getPlayerData(p.getPlayer()).addWin();
         }
     }
 }

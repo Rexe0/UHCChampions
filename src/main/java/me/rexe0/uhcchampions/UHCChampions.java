@@ -30,8 +30,8 @@ public final class UHCChampions extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        ScoreFile.getInstance().fileCheck();
-        ScoreFile.getInstance().loadData();
+        ScoreFile.fileCheck();
+        ScoreFile.loadData();
 
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new PlayerHead(), this);
@@ -76,7 +76,7 @@ public final class UHCChampions extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        ScoreFile.getInstance().saveData();
+        ScoreFile.saveData();
 
         Iterator<Recipe> iterator = getServer().recipeIterator();
         for (Recipe recipe : recipes) {

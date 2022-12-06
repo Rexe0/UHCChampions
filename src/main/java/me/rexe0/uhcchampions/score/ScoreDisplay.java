@@ -27,7 +27,7 @@ public class ScoreDisplay implements Listener {
     public int getStarLevel(Player player) {
         int starLevel = 0;
         for (Map.Entry<Integer, Integer> entry : starMap.entrySet()) {
-            if (ScoreFile.getInstance().getScore(player) >= entry.getValue()) starLevel = entry.getKey();
+            if (ScoreFile.getPlayerData(player).getScore() >= entry.getValue()) starLevel = entry.getKey();
         }
         return starLevel;
     }
