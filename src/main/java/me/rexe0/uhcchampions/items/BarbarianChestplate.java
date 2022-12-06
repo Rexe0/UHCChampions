@@ -10,7 +10,7 @@ import org.bukkit.potion.PotionEffectType;
 public class BarbarianChestplate {
     public static void barbarianCheck(Player player) {
         ItemStack item = player.getEquipment().getChestplate();
-        if (!UHCChampions.isItem(item, ChatColor.GREEN+"Barbarian CHestplate")) return;
+        if (!UHCChampions.isItem(item, ChatColor.GREEN+"Barbarian Chestplate")) return;
         player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 30, 0));
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 30, 0));
     }
