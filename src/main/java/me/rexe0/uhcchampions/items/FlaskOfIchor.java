@@ -30,7 +30,7 @@ public class FlaskOfIchor implements Listener {
             if (uhcPlayer.isInTeamWith(manager.getUhcPlayer((Player)entity))) continue;
             Player p = (Player) entity;
 
-            p.addPotionEffect(new PotionEffect(PotionEffectType.HARM, 1, 2));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.HARM, 1, 1));
         }
     }
 }
