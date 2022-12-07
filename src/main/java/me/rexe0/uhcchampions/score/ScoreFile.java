@@ -58,6 +58,8 @@ public class ScoreFile {
     }
 
     public static PlayerData getPlayerData(Player player) {
+        UUID uuid = player.getUniqueId();
+        playerData.putIfAbsent(uuid, new PlayerData(uuid,0, 0));
         return playerData.get(player.getUniqueId());
     }
 }
