@@ -5,6 +5,8 @@ UHCChampions is a small add-on plugin to UHCCore which attempts to recreate some
 This includes all the items added by the crafts.yml.
 
 Items:
+- Player Heads (Players will drop their own head on death. Eating a head heals you and your teammates and also grants you Speed II)
+- Golden Heads (Crafted with 8 Gold Ingots and a Player Head. Eating a golden head heals you and your teammates for even more than a regular head and also grants Speed II)
 - Apprentice Helmet
 - Sharpness Book
 - Protection Book
@@ -41,6 +43,7 @@ Items:
 - Excalibur
 
 Mechanics:
+- Golden Apples heal for twice the amount they normally do (I recommend you use 20 hearts (40 HP) in UHCCore config because of this)
 - Reduces Strength Potion Effect's damage increase considerably
 - When you hit an enemy player with a projectile, it gives you a small indicator for the amount of damage you dealt
 - Blazes and Wither Skeletons have a chance to spawn outside of a nether fortress
