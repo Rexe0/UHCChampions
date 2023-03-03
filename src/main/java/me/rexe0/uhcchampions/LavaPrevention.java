@@ -20,7 +20,7 @@ public class LavaPrevention implements Listener {
             @Override
             public void run() {
                 for (Entity entity : player.getNearbyEntities(5, 5, 5)) {
-                    if (!(entity instanceof Item)) return;
+                    if (!(entity instanceof Item)) continue;
                     entity.setMetadata("dontBurn", new FixedMetadataValue(UHCChampions.getInstance(), true));
                 }
             }
