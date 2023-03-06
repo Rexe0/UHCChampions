@@ -58,8 +58,8 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
-            <id>sonatype</id>
-            <url>https://oss.sonatype.org/content/groups/public/</url>
+            <id>uhccore</id>
+            <url>https://gitlab.com/api/v4/groups/uhccore/-/packages/maven</url>
         </repository>
     </repositories>
 
@@ -73,9 +73,8 @@
         <dependency>
             <groupId>net.zerodind</groupId>
             <artifactId>uhccore</artifactId>
-            <version>1.20.2</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/uhccore-1.20.2.jar</systemPath>
+            <version>1.20.3</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
