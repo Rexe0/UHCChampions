@@ -1,14 +1,3 @@
-/*
- * Copyright (c) 2022 Thomas Bringemeier - All Rights Reserved
- * This file is a part of Divinity and no users except
- * the author have the right to use, merge, publish,
- * copy, sell, modify and/or distribute this file or copies of it
- * unless otherwise explicitly stated by the author.
- *
- * The above copyright notice and this permission notice shall be included in
- * and applies to all copies or substantial portions of the Software/Project.
- */
-
 package me.rexe0.uhcchampions.util;
 
 import com.gmail.val59000mc.game.GameManager;
