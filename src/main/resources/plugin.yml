@@ -1,4 +1,0 @@
-name: UHCChampions
-version: '${project.version}'
-main: me.rexe0.uhcchampions.UHCChampions
-api-version: 1.8
