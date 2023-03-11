@@ -18,7 +18,6 @@ public abstract class VersionUtils {
         try {
             String packageName = VersionUtils.class.getPackage().getName();
             String versionName = "v"+getVersion().replace(".", "_");
-            Bukkit.getLogger().log(Level.INFO, packageName + "." + versionName + "." + "VersionUtils_"+versionName);
             versionUtils = (VersionUtils) Class.forName(packageName + "." + versionName + "." + "VersionUtils_"+versionName).getConstructor().newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException | InvocationTargetException | NoSuchMethodException exception) {
             Bukkit.getLogger().log(Level.SEVERE, "UHCChampions could not recognize this version");
