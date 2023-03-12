@@ -23,13 +23,13 @@ public final class UHCChampions extends JavaPlugin {
 
     private List<Recipe> recipes;
     private static UHCChampions instance;
-    private ConfigLoader configLoader;
+    private static ConfigLoader configLoader;
 
     public static UHCChampions getInstance() {
         return instance;
     }
 
-    public ConfigLoader getConfigLoader() {
+    public static ConfigLoader getConfigLoader() {
         return configLoader;
     }
 
@@ -41,7 +41,7 @@ public final class UHCChampions extends JavaPlugin {
 
         ConfigLoader loader = new ConfigLoader(getConfig());
         getCommand("uhcchampionsreload").setExecutor(loader);
-        this.configLoader = loader;
+        configLoader = loader;
 
         ScoreFile.fileCheck();
         ScoreFile.loadData();

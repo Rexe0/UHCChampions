@@ -23,7 +23,7 @@ public class ScoreDisplay implements Listener {
     }
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
-        if (!UHCChampions.getInstance().getConfigLoader().isStarPrefix()) return;
+        if (!UHCChampions.getConfigLoader().isStarPrefix()) return;
         e.setFormat(ChatColor.GOLD+"["+getStarLevel(e.getPlayer())+"✫] "+ChatColor.RESET+e.getFormat());
     }
     public int getStarLevel(Player player) {

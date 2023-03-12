@@ -1,3 +1,16 @@
 # Enables the star prefix when a player types in chat. This prefix contains the player's star level
 # which is calculated based on how many kills and wins they have obtained in the past
 enable-star-prefix: true
+
+# Configure the items of UHCChampions (Their damage and names usually.)
+# For recipe, enchantments, and other things, use UHCCore's files
+# Note: The name option here only changes how the plugin will recognise the item
+# but not the actual item name itself. Use UHCCore's files for that. Ensure both names are the same, including the colour.
+items:
+  # Summons lightning on target upon attack with cooldown
+  axe-of-perun:
+    name: "&aAxe of Perun"
+    # True damage dealt upon triggering ability
+    damage: 4.0
+    # Cooldown in ticks. There are 20 ticks in a second, so 100 ticks is 5 seconds.
+    cooldown: 100

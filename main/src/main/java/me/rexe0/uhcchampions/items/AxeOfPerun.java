@@ -1,8 +1,8 @@
 package me.rexe0.uhcchampions.items;
 
 import me.rexe0.uhcchampions.UHCChampions;
+import me.rexe0.uhcchampions.config.ConfigLoader;
 import me.rexe0.uhcchampions.util.VersionUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,16 +15,20 @@ import java.util.HashSet;
 import java.util.UUID;
 
 public class AxeOfPerun implements Listener {
+    private final String id = "axe-of-perun";
     private static final HashSet<UUID> perunCooldown = new HashSet<>();
 
     @EventHandler
     public void onHit(EntityDamageByEntityEvent e) {
         if (!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof Player)) return;
+
         Player damager = (Player) e.getDamager();
         if (perunCooldown.contains(damager.getUniqueId())) return;
 
         ItemStack item = VersionUtils.getVersionUtils().getItemInMainhand(damager);
-        if (!UHCChampions.isItem(item, ChatColor.GREEN+"Axe of Perun")) return;
+        ConfigLoader loader = UHCChampions.getConfigLoader();
+
+        if (!UHCChampions.isItem(item, loader.getItemName(id))) return;
 
         LivingEntity entity = (LivingEntity) e.getEntity();
 
@@ -34,9 +38,9 @@ public class AxeOfPerun implements Listener {
             public void run() {
                 perunCooldown.remove(damager.getUniqueId());
             }
-        }.runTaskLater(UHCChampions.getInstance(), 100);
+        }.runTaskLater(UHCChampions.getInstance(), loader.getItemInteger(id, "cooldown"));
 
         entity.getWorld().strikeLightningEffect(entity.getEyeLocation());
-        UHCChampions.dealTrueDamage(entity, 4);
+        UHCChampions.dealTrueDamage(entity, loader.getItemDouble(id, "damage"));
     }
 }
