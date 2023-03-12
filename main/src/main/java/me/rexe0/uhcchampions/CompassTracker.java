@@ -25,6 +25,7 @@ public class CompassTracker implements Listener {
     @EventHandler
     public void onClick(PlayerInteractEvent e) throws UhcPlayerNotOnlineException {
         if (e.getItem() == null || e.getItem().getType() != Material.COMPASS) return;
+        if (!UHCChampions.getConfigLoader().isCompassTracker()) return;
         GameManager manager = GameManager.getGameManager();
         if (!manager.getPvp()) {
             e.getPlayer().sendMessage(ChatColor.RED+"Compasses only work after Grace Period is over.");
@@ -54,6 +55,7 @@ public class CompassTracker implements Listener {
     }
 
     public static void run() {
+        if (!UHCChampions.getConfigLoader().isCompassTracker()) return;
         for (Map.Entry<UUID, UUID> entry : compassTarget.entrySet()) {
             Player player = Bukkit.getPlayer(entry.getKey());
             Player p = Bukkit.getPlayer(entry.getValue());
