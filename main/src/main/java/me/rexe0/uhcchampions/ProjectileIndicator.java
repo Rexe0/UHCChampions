@@ -14,6 +14,8 @@ public class ProjectileIndicator implements Listener {
         if (!(e.getDamager() instanceof Arrow)) return;
         if (!(e.getEntity() instanceof Player) || !(((Arrow)e.getDamager()).getShooter() instanceof Player)) return;
         if (e.isCancelled()) return;
+        if (!UHCChampions.getConfigLoader().isProjectileIndicator()) return;
+
         Player player = (Player) ((Arrow)e.getDamager()).getShooter();
         Player entity = (Player) e.getEntity();
         double damage = Math.floor(e.getFinalDamage()*100)/100f;

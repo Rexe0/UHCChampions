@@ -15,6 +15,7 @@ import java.util.Map;
 public class ConfigLoader implements CommandExecutor {
     private FileConfiguration config;
     private boolean starPrefix;
+    private boolean projectileIndicator;
     private Map<String, Map<String, Object>> itemMap;
 
     public ConfigLoader(FileConfiguration config) {
@@ -24,6 +25,7 @@ public class ConfigLoader implements CommandExecutor {
 
     private void init() {
         starPrefix = config.getBoolean("enable-star-prefix");
+        projectileIndicator = config.getBoolean("enable-projectile-indicator");
 
         itemMap = new HashMap<>();
         for (String section : config.getConfigurationSection("items").getKeys(false)) {
@@ -54,6 +56,10 @@ public class ConfigLoader implements CommandExecutor {
     }
     public boolean isStarPrefix() {
         return starPrefix;
+    }
+
+    public boolean isProjectileIndicator() {
+        return projectileIndicator;
     }
 
     @Override

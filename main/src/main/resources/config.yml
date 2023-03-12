@@ -2,6 +2,9 @@
 # which is calculated based on how many kills and wins they have obtained in the past
 enable-star-prefix: true
 
+# Enables a setting which shows how much damage an arrow does when hitting an enemy player
+enable-projectile-indicator: true
+
 # Configure the items of UHCChampions (Their damage and names usually.)
 # For recipe, enchantments, and other things, use UHCCore's files
 # Note: The name option here only changes how the plugin will recognise the item
