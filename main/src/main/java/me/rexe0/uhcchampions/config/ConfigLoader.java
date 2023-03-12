@@ -20,6 +20,8 @@ public class ConfigLoader implements CommandExecutor {
     private boolean projectileIndicator;
     private boolean compassTracker;
     private boolean mobChanges;
+    private boolean playerHeads;
+    private boolean goldenHeads;
     private Map<String, Map<String, Object>> itemMap;
     private List<String> disabledEnchantItems;
 
@@ -33,6 +35,8 @@ public class ConfigLoader implements CommandExecutor {
         projectileIndicator = config.getBoolean("enable-projectile-indicator");
         compassTracker = config.getBoolean("enable-compass-tracker");
         mobChanges = config.getBoolean("enable-mob-changes");
+        playerHeads = config.getBoolean("enable-player-heads");
+        goldenHeads = config.getBoolean("enable-golden-heads");
 
         itemMap = new HashMap<>();
         for (String section : config.getConfigurationSection("items").getKeys(false)) {
@@ -83,6 +87,14 @@ public class ConfigLoader implements CommandExecutor {
 
     public boolean isMobChanges() {
         return mobChanges;
+    }
+
+    public boolean isPlayerHeads() {
+        return playerHeads;
+    }
+
+    public boolean isGoldenHeads() {
+        return goldenHeads;
     }
 
     @Override

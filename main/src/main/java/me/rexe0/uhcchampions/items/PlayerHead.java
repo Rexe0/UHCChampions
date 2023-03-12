@@ -30,6 +30,7 @@ public class PlayerHead implements Listener {
     private static final HashSet<UUID> headCooldown = new HashSet<>();
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
+        if (!UHCChampions.getConfigLoader().isPlayerHeads()) return;
         Player player = e.getEntity();
 
         ItemStack item = VersionUtils.getVersionUtils().getPlayerSkull(player);
@@ -67,6 +68,7 @@ public class PlayerHead implements Listener {
         UhcPlayer uhcPlayer = manager.getUhcPlayer(player);
 
         if (!item.getItemMeta().hasDisplayName() || !item.getItemMeta().getDisplayName().equals(ChatColor.GOLD+"Golden Head")) {
+            if (!UHCChampions.getConfigLoader().isPlayerHeads()) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 520, 1), true);
             player.sendMessage(ChatColor.GREEN+"You ate a "+ChatColor.RED+"Player Head"+ChatColor.GREEN+" which gave you Regeneration II for 5 seconds and Speed II for 26 seconds.");
@@ -83,6 +85,7 @@ public class PlayerHead implements Listener {
                     }
                 }
         } else {
+            if (!UHCChampions.getConfigLoader().isGoldenHeads()) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2));
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 520, 1), true);
             player.sendMessage(ChatColor.GREEN + "You ate a " + ChatColor.GOLD + "Golden Head" + ChatColor.GREEN + " which gave you Regeneration III for 5 seconds and Speed II for 26 seconds.");

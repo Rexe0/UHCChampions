@@ -72,7 +72,8 @@ public final class UHCChampions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ArtemisBow(), this);
         getServer().getPluginManager().registerEvents(new Excalibur(), this);
         recipes = new ArrayList<>();
-        recipes.add(PlayerHead.goldenHeadCraft());
+        if (UHCChampions.getConfigLoader().isGoldenHeads())
+            recipes.add(PlayerHead.goldenHeadCraft());
         recipes.forEach((r) -> getServer().addRecipe(r));
 
         new BukkitRunnable() {

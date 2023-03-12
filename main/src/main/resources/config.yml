@@ -12,6 +12,14 @@ enable-compass-tracker: true
 # in the nether or modified mob loot tables
 enable-mob-changes: true
 
+# Enables a setting where player heads drop from players when they die. These heads can be eaten instantly for speed and regeneration.
+# Player heads also heal teammates
+enable-player-heads: true
+
+# Enables a setting where golden heads can be crafted from player heads and golden ingots. These golden heads can be eaten instantly for increased speed and regeneration.
+# Golden heads also heal teammates for an increased amount
+enable-golden-heads: true
+
 # Configure the items of UHCChampions (Their damage and names usually.)
 # For recipe, enchantments, and other things, use UHCCore's files
 # Note: The name option here only changes how the plugin will recognise the item
