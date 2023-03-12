@@ -17,6 +17,7 @@ public class ConfigLoader implements CommandExecutor {
     private boolean starPrefix;
     private boolean projectileIndicator;
     private boolean compassTracker;
+    private boolean mobChanges;
     private Map<String, Map<String, Object>> itemMap;
 
     public ConfigLoader(FileConfiguration config) {
@@ -28,6 +29,7 @@ public class ConfigLoader implements CommandExecutor {
         starPrefix = config.getBoolean("enable-star-prefix");
         projectileIndicator = config.getBoolean("enable-projectile-indicator");
         compassTracker = config.getBoolean("enable-compass-tracker");
+        mobChanges = config.getBoolean("enable-mob-changes");
 
         itemMap = new HashMap<>();
         for (String section : config.getConfigurationSection("items").getKeys(false)) {
@@ -66,6 +68,10 @@ public class ConfigLoader implements CommandExecutor {
 
     public boolean isCompassTracker() {
         return compassTracker;
+    }
+
+    public boolean isMobChanges() {
+        return mobChanges;
     }
 
     @Override

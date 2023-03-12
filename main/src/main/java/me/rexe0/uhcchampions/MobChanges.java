@@ -19,32 +19,35 @@ public class MobChanges implements Listener {
     public void onSpawn(CreatureSpawnEvent e) {
         if (e.getSpawnReason() != CreatureSpawnEvent.SpawnReason.NATURAL) return;
         if (!(e.getEntity() instanceof PigZombie)) return;
+        if (!UHCChampions.getConfigLoader().isMobChanges()) return;
+        if (rand.nextInt(3) != 0) return;
+
+        Location location = e.getEntity().getLocation();
+        e.setCancelled(true);
         if (rand.nextInt(3) == 0) {
-            Location location = e.getEntity().getLocation();
-            e.setCancelled(true);
-            if (rand.nextInt(3) == 0) {
-                if (VersionUtils.getVersion().equals("1.8")) {
-                    Skeleton skeleton = ((Skeleton)location.getWorld().spawnEntity(location, EntityType.SKELETON));
-                    skeleton.setSkeletonType(Skeleton.SkeletonType.WITHER);
-                    skeleton.getEquipment().setItemInHand(new ItemStack(Material.STONE_SWORD));
-                } else {
-                    WitherSkeleton skeleton = ((WitherSkeleton)location.getWorld().spawnEntity(location, EntityType.WITHER_SKELETON));
-                    skeleton.getEquipment().setItemInMainHand(new ItemStack(Material.STONE_SWORD));
-                }
-                return;
+            if (VersionUtils.getVersion().equals("1.8")) {
+                Skeleton skeleton = ((Skeleton) location.getWorld().spawnEntity(location, EntityType.SKELETON));
+                skeleton.setSkeletonType(Skeleton.SkeletonType.WITHER);
+                skeleton.getEquipment().setItemInHand(new ItemStack(Material.STONE_SWORD));
+            } else {
+                WitherSkeleton skeleton = ((WitherSkeleton) location.getWorld().spawnEntity(location, EntityType.WITHER_SKELETON));
+                skeleton.getEquipment().setItemInMainHand(new ItemStack(Material.STONE_SWORD));
             }
-            location.getWorld().spawnEntity(location, EntityType.BLAZE);
+            return;
         }
+        location.getWorld().spawnEntity(location, EntityType.BLAZE);
 
     }
     @EventHandler
     public void onShear(PlayerShearEntityEvent e) {
         if (!(e.getEntity() instanceof Sheep)) return;
+        if (!UHCChampions.getConfigLoader().isMobChanges()) return;
         if (rand.nextInt(3) != 0) return;
         e.getEntity().getWorld().dropItemNaturally(e.getEntity().getLocation(), new ItemStack(Material.STRING));
     }
     @EventHandler
     public void onDeath(EntityDeathEvent e) {
+        if (!UHCChampions.getConfigLoader().isMobChanges()) return;
         LivingEntity entity = e.getEntity();
         if (entity instanceof Spider) {
             entity.getWorld().dropItemNaturally(entity.getLocation(), new ItemStack(Material.STRING));

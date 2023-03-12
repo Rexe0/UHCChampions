@@ -8,6 +8,10 @@ enable-projectile-indicator: true
 # Enables a setting which allows all players to, after grace period, track enemy players by right-clicking a compass
 enable-compass-tracker: true
 
+# Enables a setting which modifies mob changes used in this plugin: e.g. Blazes and wither skeletons spawning anywhere
+# in the nether or modified mob loot tables
+enable-mob-changes: true
+
 # Configure the items of UHCChampions (Their damage and names usually.)
 # For recipe, enchantments, and other things, use UHCCore's files
 # Note: The name option here only changes how the plugin will recognise the item
