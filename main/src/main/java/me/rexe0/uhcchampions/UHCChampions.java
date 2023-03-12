@@ -1,5 +1,6 @@
 package me.rexe0.uhcchampions;
 
+import me.rexe0.uhcchampions.config.ConfigLoader;
 import me.rexe0.uhcchampions.items.Terminator;
 import me.rexe0.uhcchampions.items.*;
 import me.rexe0.uhcchampions.score.ScoreDisplay;
@@ -22,14 +23,26 @@ public final class UHCChampions extends JavaPlugin {
 
     private List<Recipe> recipes;
     private static UHCChampions instance;
+    private ConfigLoader configLoader;
 
     public static UHCChampions getInstance() {
         return instance;
     }
 
+    public ConfigLoader getConfigLoader() {
+        return configLoader;
+    }
+
     @Override
     public void onEnable() {
         instance = this;
+
+        saveDefaultConfig();
+
+        ConfigLoader loader = new ConfigLoader(getConfig());
+        getCommand("uhcchampionsreload").setExecutor(loader);
+        this.configLoader = loader;
+
         ScoreFile.fileCheck();
         ScoreFile.loadData();
 

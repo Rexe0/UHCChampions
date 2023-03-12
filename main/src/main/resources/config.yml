@@ -1,0 +1,3 @@
+# Enables the star prefix when a player types in chat. This prefix contains the player's star level
+# which is calculated based on how many kills and wins they have obtained in the past
+enable-star-prefix: true

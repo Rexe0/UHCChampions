@@ -1,5 +1,6 @@
 package me.rexe0.uhcchampions.score;
 
+import me.rexe0.uhcchampions.UHCChampions;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,6 +23,7 @@ public class ScoreDisplay implements Listener {
     }
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
+        if (!UHCChampions.getInstance().getConfigLoader().isStarPrefix()) return;
         e.setFormat(ChatColor.GOLD+"["+getStarLevel(e.getPlayer())+"✫] "+ChatColor.RESET+e.getFormat());
     }
     public int getStarLevel(Player player) {
