@@ -116,6 +116,7 @@ public class PlayerHead implements Listener {
     @EventHandler
     public void onEat(PlayerItemConsumeEvent e) {
         if (e.getItem().getType() != Material.GOLDEN_APPLE) return;
+        if (!UHCChampions.getConfigLoader().isDoubleGoldenAppleHealing()) return;
         if (VersionUtils.getVersion().equals("1.8") && VersionUtils.getVersionUtils().getDurability(e.getItem()) != 0) return;
         Player player = e.getPlayer();
 

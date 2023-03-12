@@ -22,6 +22,7 @@ public class ConfigLoader implements CommandExecutor {
     private boolean mobChanges;
     private boolean playerHeads;
     private boolean goldenHeads;
+    private boolean doubleGoldenAppleHealing;
     private Map<String, Map<String, Object>> itemMap;
     private List<String> disabledEnchantItems;
 
@@ -37,6 +38,7 @@ public class ConfigLoader implements CommandExecutor {
         mobChanges = config.getBoolean("enable-mob-changes");
         playerHeads = config.getBoolean("enable-player-heads");
         goldenHeads = config.getBoolean("enable-golden-heads");
+        doubleGoldenAppleHealing = config.getBoolean("enable-double-golden-apple-healing");
 
         itemMap = new HashMap<>();
         for (String section : config.getConfigurationSection("items").getKeys(false)) {
@@ -95,6 +97,10 @@ public class ConfigLoader implements CommandExecutor {
 
     public boolean isGoldenHeads() {
         return goldenHeads;
+    }
+
+    public boolean isDoubleGoldenAppleHealing() {
+        return doubleGoldenAppleHealing;
     }
 
     @Override

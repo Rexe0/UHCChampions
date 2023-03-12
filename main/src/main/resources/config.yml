@@ -20,6 +20,9 @@ enable-player-heads: true
 # Golden heads also heal teammates for an increased amount
 enable-golden-heads: true
 
+# Enables a setting where all golden apples heal for twice the amount than they usually do (Typically used with double health UHC)
+enable-double-golden-apple-healing: true
+
 # Configure the items of UHCChampions (Their damage and names usually.)
 # For recipe, enchantments, and other things, use UHCCore's files
 # Note: The name option here only changes how the plugin will recognise the item
