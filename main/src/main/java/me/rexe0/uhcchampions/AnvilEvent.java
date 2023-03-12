@@ -58,6 +58,6 @@ public class AnvilEvent implements Listener {
     private boolean anvilCheck(ItemStack item) {
         if (item == null || item.getType() == Material.AIR) return false;
         if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) return false;
-        return  (item.getItemMeta().getDisplayName().startsWith(ChatColor.GREEN+"") && !UHCChampions.isItem(item, ChatColor.GREEN+"Dragon Sword"));
+        return !UHCChampions.getConfigLoader().isEnchantable(item.getItemMeta().getDisplayName());
     }
 }

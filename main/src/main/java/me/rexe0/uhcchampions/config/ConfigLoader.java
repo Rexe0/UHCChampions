@@ -9,7 +9,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ConfigLoader implements CommandExecutor {
@@ -19,6 +21,7 @@ public class ConfigLoader implements CommandExecutor {
     private boolean compassTracker;
     private boolean mobChanges;
     private Map<String, Map<String, Object>> itemMap;
+    private List<String> disabledEnchantItems;
 
     public ConfigLoader(FileConfiguration config) {
         this.config = config;
@@ -41,6 +44,14 @@ public class ConfigLoader implements CommandExecutor {
 
             itemMap.put(section, attributes);
         }
+
+        disabledEnchantItems = new ArrayList<>(config.getStringList("item-enchant-disabled"));
+    }
+
+    public boolean isEnchantable(String name) {
+        for (String itemName : disabledEnchantItems)
+            if (name.equals(ChatColor.translateAlternateColorCodes('&', itemName))) return false;
+        return true;
     }
 
     public Object getItemAttribute(String id, String attributeName) {

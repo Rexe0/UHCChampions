@@ -24,3 +24,28 @@ items:
     damage: 4.0
     # Cooldown in ticks. There are 20 ticks in a second, so 100 ticks is 5 seconds.
     cooldown: 100
+
+# Items with the names listed here will not be able to be enchanted via an anvil. Ensure colour is correct too.
+# The default items listed here are set to ensure items are kept in a balanced state with their new abilities.
+# However, you may change them if you wish but keep in mind using a coloured item in an anvil will always remove its colour and thus
+# its ability (the plugin uses names to identify if an item is what it should be)
+item-enchant-disabled:
+  - "&aApprentice Helmet"
+  - "&aQuick Pick"
+  - "&aPhilosopher Pickaxe"
+  - "&aAnduril"
+  - "&aDragon Chestplate"
+  - "&aArtemis Bow"
+  - "&aHide Of Leviathan"
+  - "&aGenesis"
+  - "&aShoes of Vidar"
+  - "&aSeven-League Boots"
+  - "&aExodus"
+  - "&aAxe of Perun"
+  - "&aWarlock Pants"
+  - "&aCupid's Bow"
+  - "&aTerminator"
+  - "&aModular Bow"
+  - "&aKing's Rod"
+  - "&aBarbarian Chestplate"
+  - "&aExcalibur"
