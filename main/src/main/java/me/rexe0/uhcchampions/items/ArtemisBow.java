@@ -1,5 +1,6 @@
 package me.rexe0.uhcchampions.items;
 
+import com.gmail.val59000mc.game.GameManager;
 import me.rexe0.uhcchampions.UHCChampions;
 import me.rexe0.uhcchampions.util.HomingArrowRunnable;
 import org.bukkit.ChatColor;
@@ -20,8 +21,15 @@ public class ArtemisBow implements Listener {
         if (!(e.getEntity() instanceof Player)) return;
         if (!UHCChampions.isItem(e.getBow(), ChatColor.GREEN+"Artemis Bow")) return;
         if (!(e.getProjectile() instanceof Arrow)) return;
+
+        GameManager manager = GameManager.getGameManager();
+        // Ensure homing arrows don't fire before pvp starts
+        if (!manager.getPvp()) return;
+
         Arrow arrow = (Arrow) e.getProjectile();
         if ((new Random()).nextInt(4) != 0) return;
+
+
         arrow.setMetadata("homingArrow", new FixedMetadataValue(UHCChampions.getInstance(), true));
         new HomingArrowRunnable(arrow, ((Player) e.getEntity()).getPlayer()).runTaskTimer(UHCChampions.getInstance(), 5, 1);
     }
