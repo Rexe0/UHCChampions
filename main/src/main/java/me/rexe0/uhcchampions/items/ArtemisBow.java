@@ -2,8 +2,8 @@ package me.rexe0.uhcchampions.items;
 
 import com.gmail.val59000mc.game.GameManager;
 import me.rexe0.uhcchampions.UHCChampions;
+import me.rexe0.uhcchampions.config.ConfigLoader;
 import me.rexe0.uhcchampions.util.HomingArrowRunnable;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -16,18 +16,21 @@ import org.bukkit.metadata.FixedMetadataValue;
 import java.util.Random;
 
 public class ArtemisBow implements Listener {
+    private static final String id = "artemis-bow";
     @EventHandler
     public void onShoot(EntityShootBowEvent e) {
         if (!(e.getEntity() instanceof Player)) return;
-        if (!UHCChampions.isItem(e.getBow(), ChatColor.GREEN+"Artemis Bow")) return;
+        ConfigLoader loader = UHCChampions.getConfigLoader();
+
+        if (!UHCChampions.isItem(e.getBow(), loader.getItemName(id))) return;
         if (!(e.getProjectile() instanceof Arrow)) return;
 
         GameManager manager = GameManager.getGameManager();
         // Ensure homing arrows don't fire before pvp starts
         if (!manager.getPvp()) return;
 
+        if ((new Random()).nextInt(100) < loader.getItemInteger(id, "chance")) return;
         Arrow arrow = (Arrow) e.getProjectile();
-        if ((new Random()).nextInt(4) != 0) return;
 
 
         arrow.setMetadata("homingArrow", new FixedMetadataValue(UHCChampions.getInstance(), true));
@@ -39,6 +42,8 @@ public class ArtemisBow implements Listener {
         if (!(e.getEntity() instanceof LivingEntity)) return;
         Arrow arrow = (Arrow) e.getDamager();
         if (!arrow.hasMetadata("homingArrow")) return;
-        e.setDamage(e.getDamage()*0.6f);
+
+        ConfigLoader loader = UHCChampions.getConfigLoader();
+        e.setDamage(e.getDamage()*loader.getItemDouble(id, "multiplier"));
     }
 }

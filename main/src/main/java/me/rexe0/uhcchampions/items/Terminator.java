@@ -1,9 +1,9 @@
 package me.rexe0.uhcchampions.items;
 
 import me.rexe0.uhcchampions.UHCChampions;
+import me.rexe0.uhcchampions.config.ConfigLoader;
 import me.rexe0.uhcchampions.util.Sound;
 import me.rexe0.uhcchampions.util.VersionUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
@@ -22,6 +22,7 @@ import java.util.UUID;
 
 public class Terminator implements Listener {
     private Map<UUID, Integer> arrowsShot = new HashMap<>();
+    private static final String id = "terminator";
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         arrowsShot.remove(e.getPlayer().getUniqueId());
@@ -31,12 +32,14 @@ public class Terminator implements Listener {
     public void onClick(EntityShootBowEvent e) {
         if (!(e.getEntity() instanceof Player)) return;
         ItemStack item = e.getBow();
-        if (!UHCChampions.isItem(item, ChatColor.GREEN+"Terminator")) return;
+        ConfigLoader loader = UHCChampions.getConfigLoader();
+
+        if (!UHCChampions.isItem(item, loader.getItemName(id))) return;
         Player player = (Player) e.getEntity();
 
         arrowsShot.putIfAbsent(player.getUniqueId(), 0);
         arrowsShot.put(player.getUniqueId(), arrowsShot.get(player.getUniqueId())+1);
-        if (arrowsShot.get(player.getUniqueId()) < 5) return;
+        if (arrowsShot.get(player.getUniqueId()) < loader.getItemInteger(id, "trigger-requirement")) return;
         arrowsShot.put(player.getUniqueId(), 0);
         e.getProjectile().setMetadata("terminatorArrow", new FixedMetadataValue(UHCChampions.getInstance(), true));
     }
@@ -51,8 +54,10 @@ public class Terminator implements Listener {
 
         if (!damager.hasMetadata("terminatorArrow")) return;
 
-        int arrowsInside = Math.min(4, VersionUtils.getVersionUtils().getArrowsStuckInBody(entity));
-        e.setDamage(e.getDamage()+(arrowsInside*5));
+        ConfigLoader loader = UHCChampions.getConfigLoader();
+
+        int arrowsInside = Math.min(loader.getItemInteger(id, "max-arrows"), VersionUtils.getVersionUtils().getArrowsStuckInBody(entity));
+        e.setDamage(e.getDamage()+(arrowsInside*loader.getItemDouble(id, "damage")));
 
         VersionUtils.getVersionUtils().setArrowsStuckInBody(entity, 0);
 

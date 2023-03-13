@@ -69,11 +69,11 @@ public class ConfigLoader implements CommandExecutor {
     public double getItemDouble(String id, String attributeName) {
         return (double) getItemAttribute(id, attributeName);
     }
-    public String getItemString(String id, String attributeName) {
-        return (String) getItemAttribute(id, attributeName);
+    public boolean getItemBoolean(String id, String attributeName) {
+        return (boolean) getItemAttribute(id, attributeName);
     }
     public String getItemName(String id) {
-        return ChatColor.translateAlternateColorCodes('&', (String) getItemAttribute(id, "name"));
+        return ChatColor.translateAlternateColorCodes('&', "&a"+getItemAttribute(id, "name"));
     }
     public boolean isStarPrefix() {
         return starPrefix;

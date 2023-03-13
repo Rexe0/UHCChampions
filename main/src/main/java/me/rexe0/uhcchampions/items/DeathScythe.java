@@ -1,8 +1,8 @@
 package me.rexe0.uhcchampions.items;
 
 import me.rexe0.uhcchampions.UHCChampions;
+import me.rexe0.uhcchampions.config.ConfigLoader;
 import me.rexe0.uhcchampions.util.VersionUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -17,6 +17,7 @@ import java.util.UUID;
 
 public class DeathScythe implements Listener {
     private static final HashSet<UUID> scytheCooldown = new HashSet<>();
+    private static final String id = "death-scythe";
 
     @EventHandler
     public void onHit(EntityDamageByEntityEvent e) {
@@ -25,7 +26,9 @@ public class DeathScythe implements Listener {
         if (scytheCooldown.contains(damager.getUniqueId())) return;
 
         ItemStack item = VersionUtils.getVersionUtils().getItemInMainhand(damager);
-        if (!UHCChampions.isItem(item, ChatColor.GREEN+"Death's Scythe")) return;
+        ConfigLoader loader = UHCChampions.getConfigLoader();
+
+        if (!UHCChampions.isItem(item, loader.getItemName(id))) return;
 
         LivingEntity entity = (LivingEntity) e.getEntity();
 
@@ -35,11 +38,11 @@ public class DeathScythe implements Listener {
             public void run() {
                 scytheCooldown.remove(damager.getUniqueId());
             }
-        }.runTaskLater(UHCChampions.getInstance(), 60);
+        }.runTaskLater(UHCChampions.getInstance(), loader.getItemInteger(id, "cooldown"));
         new BukkitRunnable() {
             @Override
             public void run() {
-                UHCChampions.dealTrueDamage(entity, entity.getHealth()*0.2f);
+                UHCChampions.dealTrueDamage(entity, entity.getHealth()*(loader.getItemDouble(id, "damage")));
             }
         }.runTaskLater(UHCChampions.getInstance(), 1);
 

@@ -28,13 +28,100 @@ enable-double-golden-apple-healing: true
 # Note: The name option here only changes how the plugin will recognise the item
 # but not the actual item name itself. Use UHCCore's files for that. Ensure both names are the same, including the colour.
 items:
+  # Grants Speed I and Resistance I when held.
+  anduril:
+    name: "Anduril"
+  # Each bow shot has a chance at homing onto an enemy
+  artemis-bow:
+    name: "Artemis Bow"
+    # Chance that the arrow shot is a homing arrow in percentage chance
+    chance: 25
+    # Damage multiplier for homing arrows (0.6 means 60% of the original damage)
+    multiplier: 0.6
   # Summons lightning on target upon attack with cooldown
   axe-of-perun:
-    name: "&aAxe of Perun"
+    name: "Axe of Perun"
     # True damage dealt upon triggering ability
     damage: 4.0
     # Cooldown in ticks. There are 20 ticks in a second, so 100 ticks is 5 seconds.
     cooldown: 100
+  # Grants Strength I and Resistance I when worn.
+  barbarian-chestplate:
+    name: "Barbarian Chestplate"
+  # Upon use, caps all melee damage taken to a percentage of your max health
+  chalice-of-grace:
+    name: "Chalice of Grace"
+    # Percent of max health as represented by decimal (0.05 is 5%, 1.0 is 100%)
+    cap: 0.05
+    # Duration in ticks. There are 20 ticks in a second, so 100 ticks is 5 seconds.
+    duration: 100
+  # Instantly consumed to grant regeneration and saturation
+  cornucopia:
+    name: "Cornucopia"
+    # Amplifier (level, starts at 0) and Duration (length in ticks, 20 ticks in a second) of Regeneration effect
+    regenAmp: 1
+    regenDuration: 200
+    # Amplifier (level, starts at 0) and Duration (length in ticks, 20 ticks in a second) of Saturation effect
+    saturationAmp: 0
+    saturationDuration: 1200
+  # Deals current health true damage on hit
+  death-scythe:
+    name: "Death's Scythe"
+    # Percent of current health in true damage in decimal form (0.2 is 20%, 1.0 is 100%)
+    damage: 0.2
+    # Cooldown in ticks. There are 20 ticks in a second, so 60 ticks is 3 seconds.
+    cooldown: 60
+  # Has a different base damage
+  dragon-sword:
+    name: "Dragon Sword"
+    # Base damage of Dragon Sword
+    damage: 8.0
+  # Deals true damage upon hitting multiple hits consecutively on a target
+  excalibur:
+    name: "Excalibur"
+    # True damage dealt after hitting a successful combo
+    damage: 4.0
+    # Hits required for a successful combo
+    combo: 3
+  # Grants regeneration upon hitting an enemy with a bow or melee
+  exodus:
+    name: "Exodus"
+    # Amplifier (level, starts at 0) and Duration (length in ticks, 20 ticks in a second) of Regeneration effect
+    regenAmp: 1
+    regenDuration: 51
+  # When thrown on enemies, removes all positive effects from them and prevents them from gaining any for the duration
+  flask-of-cleansing:
+    name: "Flask of Cleansing"
+    # Duration of the effect in ticks. There are 20 ticks in a second, so 200 ticks is 10 seconds.
+    duration: 200
+    # Whether the potion should inflict Weakness I for the duration
+    enable-weakness-effect: true
+  # Just applies instant damage when thrown on enemies
+  flask-of-ichor:
+    name: "Flask of Ichor"
+    # Amplfiier of instant damage effect.
+    amplifier: 1
+  # A bow which can switch between punch, poison and lightning
+  modular-bow:
+    name: "Modular Bow"
+    # True damage dealt by lightning mode
+    damage: 2.0
+    # Whether the poison mode should also slow the target
+    enable-poison-slow: true
+  # A bow which when shot 5 times, the 5th arrow rips out all other arrows in the target dealing physical damage
+  terminator:
+    name: "Terminator"
+    # Damage dealt per arrow
+    damage: 5.0
+    # Max amount of arrows that can be pulled out
+    max-arrows: 4
+    # How many arrows it takes before the ability is triggered
+    trigger-requirement: 5
+  warlock-pants:
+    name: "Warlock Pants"
+    # The maximum damage reduction that can be achieved (at 0% health, 50% health is 50% of this value) 0.2 is 20%, 1.0 is 100%
+    max-reduction: 0.2
+
 
 # Items with the names listed here will not be able to be enchanted via an anvil. Ensure colour is correct too.
 # The default items listed here are set to ensure items are kept in a balanced state with their new abilities.

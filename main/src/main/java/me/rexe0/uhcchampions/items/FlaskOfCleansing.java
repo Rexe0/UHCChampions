@@ -4,6 +4,7 @@ import com.gmail.val59000mc.game.GameManager;
 import com.gmail.val59000mc.players.PlayerManager;
 import com.gmail.val59000mc.players.UhcPlayer;
 import me.rexe0.uhcchampions.UHCChampions;
+import me.rexe0.uhcchampions.config.ConfigLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
@@ -24,6 +25,7 @@ import java.util.UUID;
 public class FlaskOfCleansing implements Listener {
     private static HashSet<UUID> cleansedPlayers = new HashSet<>();
     private static List<PotionEffectType> positiveEffects;
+    private static final String id = "flask-of-cleansing";
 
     static {
         positiveEffects = new ArrayList<>();
@@ -57,10 +59,14 @@ public class FlaskOfCleansing implements Listener {
     public void onHit(PotionSplashEvent e) {
         if (e.getEntity().getShooter() == null || !(e.getEntity().getShooter() instanceof Player)) return;
         ItemStack item = e.getPotion().getItem();
-        if (!UHCChampions.isItem(item, ChatColor.GREEN+"Flask of Cleansing")) return;
+        ConfigLoader loader = UHCChampions.getConfigLoader();
+
+        if (!UHCChampions.isItem(item, loader.getItemName(id))) return;
         PlayerManager manager = GameManager.getGameManager().getPlayerManager();
         Player player = (Player) e.getEntity().getShooter();
         UhcPlayer uhcPlayer = manager.getUhcPlayer((Player) e.getEntity().getShooter());
+
+        int duration = loader.getItemInteger(id, "duration");
 
         for (Entity entity : e.getAffectedEntities()) {
             if (!(entity instanceof Player)) continue;
@@ -68,16 +74,18 @@ public class FlaskOfCleansing implements Listener {
             if (uhcPlayer.isInTeamWith(manager.getUhcPlayer((Player)entity))) continue;
             Player p = (Player) entity;
             if (cleansedPlayers.contains(p.getUniqueId())) continue;
-            p.sendMessage(ChatColor.RED+"You have been cursed by "+player.getName()+"! Positive potion effects will no longer work for 10 seconds.");
+            p.sendMessage(ChatColor.RED+"You have been cursed by "+player.getName()+"! Positive potion effects will no longer work for "+(Math.round(duration/20d*10)/10d)+" seconds.");
 
-            p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 200, 0));
+            if (loader.getItemBoolean(id, "enable-weakness-effect"))
+                p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, duration, 0));
+
             cleansedPlayers.add(p.getUniqueId());
             new BukkitRunnable() {
                 @Override
                 public void run() {
                     cleansedPlayers.remove(p.getUniqueId());
                 }
-            }.runTaskLater(UHCChampions.getInstance(), 200);
+            }.runTaskLater(UHCChampions.getInstance(), loader.getItemInteger(id, "duration"));
         }
     }
 }

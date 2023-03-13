@@ -4,7 +4,7 @@ import com.gmail.val59000mc.game.GameManager;
 import com.gmail.val59000mc.players.PlayerManager;
 import com.gmail.val59000mc.players.UhcPlayer;
 import me.rexe0.uhcchampions.UHCChampions;
-import org.bukkit.ChatColor;
+import me.rexe0.uhcchampions.config.ConfigLoader;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,11 +15,14 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class FlaskOfIchor implements Listener {
+    private static final String id = "flask-of-cleansing";
     @EventHandler
     public void onHit(PotionSplashEvent e) {
         if (e.getEntity().getShooter() == null || !(e.getEntity().getShooter() instanceof Player)) return;
         ItemStack item = e.getPotion().getItem();
-        if (!UHCChampions.isItem(item, ChatColor.GREEN+"Flask of Ichor")) return;
+        ConfigLoader loader = UHCChampions.getConfigLoader();
+
+        if (!UHCChampions.isItem(item, loader.getItemName(id))) return;
         PlayerManager manager = GameManager.getGameManager().getPlayerManager();
         Player player = (Player) e.getEntity().getShooter();
         UhcPlayer uhcPlayer = manager.getUhcPlayer((Player) e.getEntity().getShooter());
@@ -30,7 +33,7 @@ public class FlaskOfIchor implements Listener {
             if (uhcPlayer.isInTeamWith(manager.getUhcPlayer((Player)entity))) continue;
             Player p = (Player) entity;
 
-            p.addPotionEffect(new PotionEffect(PotionEffectType.HARM, 1, 1));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.HARM, 1, loader.getItemInteger(id, "amplifier")));
         }
     }
 }

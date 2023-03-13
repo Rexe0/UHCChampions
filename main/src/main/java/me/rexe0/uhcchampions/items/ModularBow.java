@@ -1,6 +1,7 @@
 package me.rexe0.uhcchampions.items;
 
 import me.rexe0.uhcchampions.UHCChampions;
+import me.rexe0.uhcchampions.config.ConfigLoader;
 import me.rexe0.uhcchampions.util.Sound;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
@@ -24,6 +25,7 @@ import java.util.UUID;
 
 public class ModularBow implements Listener {
     private Map<UUID, Integer> modularMode = new HashMap<>();
+    private static final String id = "modular-bow";
 
     private String[] modeName = new String[]{
             "Punch",
@@ -38,7 +40,9 @@ public class ModularBow implements Listener {
     @EventHandler
     public void onClick(PlayerInteractEvent e) {
         if (e.getAction() != Action.LEFT_CLICK_AIR && e.getAction() != Action.LEFT_CLICK_BLOCK) return;
-        if (!UHCChampions.isItem(e.getItem(), ChatColor.GREEN+"Modular Bow")) return;
+        ConfigLoader loader = UHCChampions.getConfigLoader();
+
+        if (!UHCChampions.isItem(e.getItem(), loader.getItemName(id))) return;
         UUID uuid = e.getPlayer().getUniqueId();
         modularMode.putIfAbsent(uuid, 0);
         int mode = modularMode.get(uuid);
@@ -57,7 +61,9 @@ public class ModularBow implements Listener {
     public void onShoot(EntityShootBowEvent e) {
         if (!(e.getEntity() instanceof Player)) return;
         Player player = (Player) e.getEntity();
-        if (!UHCChampions.isItem(e.getBow(), ChatColor.GREEN+"Modular Bow")) return;
+        ConfigLoader loader = UHCChampions.getConfigLoader();
+
+        if (!UHCChampions.isItem(e.getBow(), loader.getItemName(id))) return;
         if (!(e.getProjectile() instanceof Arrow)) return;
         Arrow arrow = (Arrow) e.getProjectile();
         modularMode.putIfAbsent(player.getUniqueId(), 0);
@@ -74,13 +80,17 @@ public class ModularBow implements Listener {
         if (!(e.getEntity() instanceof LivingEntity)) return;
         LivingEntity entity = (LivingEntity) e.getEntity();
         Arrow arrow = (Arrow) e.getDamager();
+
+        ConfigLoader loader = UHCChampions.getConfigLoader();
+
         if (arrow.hasMetadata("modularPoison")) {
             entity.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 50, 1));
-            entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 50, 0));
+            if (loader.getItemBoolean(id, "enable-poison-slow"))
+                entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 50, 0));
         }
         if (arrow.hasMetadata("modularLightning")) {
             entity.getWorld().strikeLightningEffect(entity.getLocation());
-            UHCChampions.dealTrueDamage(entity, 2);
+            UHCChampions.dealTrueDamage(entity, loader.getItemDouble(id, "damage"));
         }
     }
 }

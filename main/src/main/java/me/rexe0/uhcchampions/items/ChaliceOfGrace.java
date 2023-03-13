@@ -1,9 +1,9 @@
 package me.rexe0.uhcchampions.items;
 
 import me.rexe0.uhcchampions.UHCChampions;
+import me.rexe0.uhcchampions.config.ConfigLoader;
 import me.rexe0.uhcchampions.util.Sound;
 import me.rexe0.uhcchampions.util.VersionUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -20,11 +20,14 @@ import java.util.UUID;
 
 public class ChaliceOfGrace implements Listener {
     private final HashSet<UUID> chaliceEffect = new HashSet<>();
+    private static final String id = "chalice-of-grace";
     @EventHandler
     public void onClick(PlayerInteractEvent e) {
         if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         ItemStack item = e.getItem();
-        if (!UHCChampions.isItem(item, ChatColor.GREEN+"Chalice of Grace")) return;
+        ConfigLoader loader = UHCChampions.getConfigLoader();
+
+        if (!UHCChampions.isItem(item, loader.getItemName(id))) return;
         Player player = e.getPlayer();
 
         chaliceEffect.add(player.getUniqueId());
@@ -33,7 +36,7 @@ public class ChaliceOfGrace implements Listener {
             public void run() {
                 chaliceEffect.remove(player.getUniqueId());
             }
-        }.runTaskLater(UHCChampions.getInstance(), 100);
+        }.runTaskLater(UHCChampions.getInstance(), loader.getItemInteger(id, "duration"));
 
         player.playSound(player.getLocation(), Sound.IRON_GOLEM_DEATH.getSound(), 1, 0);
         int amount = item.getAmount();
@@ -55,10 +58,12 @@ public class ChaliceOfGrace implements Listener {
 
         double damage = e.getFinalDamage();
         e.setDamage(0.1);
+
+        double multiplier = UHCChampions.getConfigLoader().getItemDouble(id, "cap");
         new BukkitRunnable() {
             @Override
             public void run() {
-                UHCChampions.dealTrueDamage(player, Math.min(VersionUtils.getVersionUtils().getMaxHealth(player)*0.05f, damage));
+                UHCChampions.dealTrueDamage(player, Math.min(VersionUtils.getVersionUtils().getMaxHealth(player)*multiplier, damage));
             }
         }.runTaskLater(UHCChampions.getInstance(), 1);
     }

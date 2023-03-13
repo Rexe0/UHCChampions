@@ -1,7 +1,7 @@
 package me.rexe0.uhcchampions.items;
 
 import me.rexe0.uhcchampions.UHCChampions;
-import org.bukkit.ChatColor;
+import me.rexe0.uhcchampions.config.ConfigLoader;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -12,6 +12,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class Exodus implements Listener {
+    private static final String id = "excalibur";
     @EventHandler
     public void onHit(EntityDamageByEntityEvent e) {
         Player damager = null;
@@ -26,7 +27,11 @@ public class Exodus implements Listener {
             damager = (Player) e.getDamager();
         }
         ItemStack helm = damager.getInventory().getHelmet();
-        if (!UHCChampions.isItem(helm, ChatColor.GREEN+"Exodus")) return;
-        damager.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 51, 1));
+        ConfigLoader loader = UHCChampions.getConfigLoader();
+
+        if (!UHCChampions.isItem(helm, loader.getItemName(id))) return;
+        damager.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION
+                , loader.getItemInteger(id, "regenDuration")
+                , loader.getItemInteger(id, "regenAmp")));
     }
 }
