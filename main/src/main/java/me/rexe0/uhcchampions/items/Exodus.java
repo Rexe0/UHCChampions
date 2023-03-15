@@ -12,7 +12,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class Exodus implements Listener {
-    private static final String id = "excalibur";
+    private static final String id = "exodus";
     @EventHandler
     public void onHit(EntityDamageByEntityEvent e) {
         Player damager = null;
