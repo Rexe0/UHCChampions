@@ -59,6 +59,7 @@ public abstract class VersionUtils {
     public abstract void setDurability(ItemStack item, int durability);
 
     public abstract void setRecipeIngredient(ShapedRecipe recipe, char symbol, Material material, short data);
+    public abstract ShapedRecipe createRecipe(String id, ItemStack item);
 
     public abstract ItemStack addAttribute(ItemStack item, Attribute attribute, double amount, int operation, String slot);
 

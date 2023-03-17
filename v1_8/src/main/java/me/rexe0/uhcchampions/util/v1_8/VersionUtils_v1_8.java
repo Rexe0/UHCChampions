@@ -68,6 +68,11 @@ public class VersionUtils_v1_8 extends VersionUtils {
     }
 
     @Override
+    public ShapedRecipe createRecipe(String id, ItemStack item) {
+        return new ShapedRecipe(item);
+    }
+
+    @Override
     public ItemStack addAttribute(ItemStack item, Attribute attribute, double amount, int operation, String slot) {
         net.minecraft.server.v1_8_R3.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
         NBTTagCompound compound = nmsStack.getTag();

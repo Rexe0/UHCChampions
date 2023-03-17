@@ -1,11 +1,9 @@
 package me.rexe0.uhcchampions.util.v1_19;
 
+import me.rexe0.uhcchampions.UHCChampions;
 import me.rexe0.uhcchampions.util.VersionUtils;
 import net.minecraft.world.item.enchantment.EnchantmentManager;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.craftbukkit.v1_19_R2.inventory.CraftItemStack;
@@ -75,6 +73,11 @@ public class VersionUtils_v1_19 extends VersionUtils {
     @Override
     public void setRecipeIngredient(ShapedRecipe recipe, char symbol, Material material, short data) {
         recipe.setIngredient(symbol, material);
+    }
+
+    @Override
+    public ShapedRecipe createRecipe(String id, ItemStack item) {
+        return new ShapedRecipe(new NamespacedKey(UHCChampions.getInstance(), id), item);
     }
 
     @Override

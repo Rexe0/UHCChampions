@@ -129,7 +129,7 @@ public class PlayerHead implements Listener {
         meta.setDisplayName(ChatColor.GOLD+"Golden Head");
         item.setItemMeta(meta);
 
-        ShapedRecipe recipe = new ShapedRecipe(item);
+        ShapedRecipe recipe = VersionUtils.getVersionUtils().createRecipe("golden_head", item);
         recipe.shape("%%%", "%$%", "%%%");
         recipe.setIngredient('%', Material.GOLD_INGOT);
         VersionUtils.getVersionUtils().setRecipeIngredient(recipe, '$', me.rexe0.uhcchampions.util.Material.PLAYER_HEAD.getMaterial(), me.rexe0.uhcchampions.util.Material.PLAYER_HEAD.getData());
