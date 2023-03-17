@@ -11,6 +11,7 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class AnvilEvent implements Listener {
     @EventHandler
@@ -52,6 +53,27 @@ public class AnvilEvent implements Listener {
             player.sendMessage(ChatColor.RED+"You cannot enchant that item.");
             player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT.getSound(), 1, 0);
         }
+    }
+
+    @EventHandler
+    public void onUseAnvil(InventoryClickEvent e) {
+        if (e.isCancelled()) return;
+
+        Inventory inv = e.getInventory();
+
+        if (!(inv instanceof AnvilInventory)) return;
+        if (!inv.equals(e.getView().getTopInventory())) return;
+        if (e.getSlot() != 2) return;
+
+        ItemStack item = inv.getItem(2);
+        ItemStack ingredient = inv.getItem(0);
+
+        if (item == null || item.getType() == Material.ENCHANTED_BOOK || ingredient == null || !ingredient.hasItemMeta() || !ingredient.getItemMeta().hasDisplayName()) return;
+
+        String name = ingredient.getItemMeta().getDisplayName();
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(name);
+        item.setItemMeta(meta);
     }
 
 
