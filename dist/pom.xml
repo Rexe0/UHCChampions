@@ -10,11 +10,11 @@
     <parent>
         <groupId>me.rexe0</groupId>
         <artifactId>UHCChampions-parent</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
     </parent>
 
     <properties>
-        <spigot.version>1.19.3-R0.1-SNAPSHOT</spigot.version>
+        <spigot.version>1.20.1-R0.1-SNAPSHOT</spigot.version>
     </properties>
 
     <build>
@@ -57,6 +57,11 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>UHCChampions-v1_19</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>UHCChampions-v1_20</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

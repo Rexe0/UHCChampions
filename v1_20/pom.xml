@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>UHCChampions-v1_19</artifactId>
+    <artifactId>UHCChampions-v1_20</artifactId>
     <packaging>jar</packaging>
 
     <parent>
@@ -14,7 +14,7 @@
     </parent>
 
     <properties>
-        <spigot.version>1.19.3-R0.1-SNAPSHOT</spigot.version>
+        <spigot.version>1.20.1-R0.1-SNAPSHOT</spigot.version>
         <java.version>17</java.version>
     </properties>
 

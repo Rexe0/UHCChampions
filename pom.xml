@@ -6,7 +6,7 @@
 
     <groupId>me.rexe0</groupId>
     <artifactId>UHCChampions-parent</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>UHCChampions</name>
 
@@ -19,6 +19,7 @@
         <module>main</module>
         <module>v1_8</module>
         <module>v1_19</module>
+        <module>v1_20</module>
         <module>dist</module>
     </modules>
 
