@@ -76,6 +76,9 @@ items:
     name: "Dragon Sword"
     # Base damage of Dragon Sword
     damage: 8.0
+    # In 1.19+, an attack speed penalty must apply to the sword as the player's base attack speed of 4 is 2.4 higher than the attack speed of a regular diamond sword.
+    # This does not mean it attacks slower than a diamond sword. This penalty is necessary to ensure that it attacks at the same rate as a regular diamond sword while still keeping its extra base damage.
+    attack-speed-reduction: 2.4
   # Deals true damage upon hitting multiple hits consecutively on a target
   excalibur:
     name: "Excalibur"

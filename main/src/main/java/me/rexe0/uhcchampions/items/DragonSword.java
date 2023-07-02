@@ -9,8 +9,12 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DragonSword implements Listener {
     private static final String id = "dragon-sword";
@@ -22,8 +26,18 @@ public class DragonSword implements Listener {
         if (!UHCChampions.isItem(result, loader.getItemName(id))) return;
         ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(ChatColor.GREEN+"Dragon Sword");
+        meta.setDisplayName(ChatColor.GREEN + "Dragon Sword");
+        List<String> lore = new ArrayList<>();
+        lore.add(ChatColor.GRAY+"Deals "+ChatColor.GREEN+"1"+ChatColor.GRAY+" extra base damage.");
+        meta.setLore(lore);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
-        e.getInventory().setResult(VersionUtils.getVersionUtils().addAttribute(item, Attribute.GENERIC_ATTACK_DAMAGE, loader.getItemDouble(id, "damage"), 0, "HAND"));
+        item = VersionUtils.getVersionUtils().addAttribute(item, Attribute.GENERIC_ATTACK_DAMAGE, loader.getItemDouble(id, "damage")-1, 0, "HAND");
+
+
+        if (!VersionUtils.getVersion().equals("1.8"))
+            item = VersionUtils.getVersionUtils().addAttribute(item, Attribute.GENERIC_ATTACK_SPEED, -loader.getItemDouble(id, "attack-speed-reduction"), 0, "HAND");
+
+        e.getInventory().setResult(item);
     }
 }

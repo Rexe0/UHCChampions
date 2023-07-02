@@ -1,7 +1,8 @@
 package me.rexe0.uhcchampions.util;
 
 public enum Attribute {
-    GENERIC_ATTACK_DAMAGE("generic.attackDamage");
+    GENERIC_ATTACK_DAMAGE("generic.attackDamage"),
+    GENERIC_ATTACK_SPEED("generic.attackSpeed");
 
     private final String name8;
 
