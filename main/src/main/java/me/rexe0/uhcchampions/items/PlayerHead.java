@@ -70,8 +70,8 @@ public class PlayerHead implements Listener {
         if (!item.getItemMeta().hasDisplayName() || !item.getItemMeta().getDisplayName().equals(ChatColor.GOLD+"Golden Head")) {
             if (!UHCChampions.getConfigLoader().isPlayerHeads()) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 520, 1), true);
-            player.sendMessage(ChatColor.GREEN+"You ate a "+ChatColor.RED+"Player Head"+ChatColor.GREEN+" which gave you Regeneration II for 5 seconds and Speed II for 26 seconds.");
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 400, 1), true);
+            player.sendMessage(ChatColor.GREEN+"You ate a "+ChatColor.RED+"Player Head"+ChatColor.GREEN+" which gave you Regeneration II for 5 seconds and Speed II for 20 seconds.");
 
                 for (UhcPlayer p : manager.getPlayersList()) {
                     try {
