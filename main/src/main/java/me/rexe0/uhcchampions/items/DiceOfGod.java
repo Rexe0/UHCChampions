@@ -51,6 +51,8 @@ public class DiceOfGod implements Listener {
             "King's Rod",
             "Barbarian Chestplate",
             "Excalibur",
+            "Vampire Fang",
+            "Mythril Mantle",
     };
     private static final String id = "dice-of-god";
     @EventHandler
