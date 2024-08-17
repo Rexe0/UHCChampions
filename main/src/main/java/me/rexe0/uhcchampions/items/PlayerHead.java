@@ -46,13 +46,13 @@ public class PlayerHead implements Listener {
         if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if (e.getItem() == null) return;
         if (e.getItem().getType() != me.rexe0.uhcchampions.util.Material.PLAYER_HEAD.getMaterial()) return;
+        if (VersionUtils.getVersion().equals("1.8") && VersionUtils.getVersionUtils().getDurability(e.getItem()) != me.rexe0.uhcchampions.util.Material.PLAYER_HEAD.getData()) return;
         if (e.getItem().getItemMeta().hasDisplayName()) {
             if (!e.getItem().getItemMeta().getDisplayName().endsWith("Head")) return;
         }
 
         ItemStack item = e.getItem();
         Player player = e.getPlayer();
-
 
         if (headCooldown.contains(player.getUniqueId())) return;
 
