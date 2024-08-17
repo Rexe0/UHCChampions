@@ -1,6 +1,7 @@
 package me.rexe0.uhcchampions.util.v1_8;
 
 import me.rexe0.uhcchampions.util.Attribute;
+import me.rexe0.uhcchampions.util.EnchantmentType;
 import me.rexe0.uhcchampions.util.VersionUtils;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Location;
@@ -8,11 +9,13 @@ import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftLivingEntity;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.Random;
 
@@ -114,5 +117,66 @@ public class VersionUtils_v1_8 extends VersionUtils {
     @Override
     public void setArrowsStuckInBody(LivingEntity entity, int amount) {
         ((CraftLivingEntity)entity).getHandle().getDataWatcher().watch(9, (byte) 0);
+    }
+
+    @Override
+    public PotionEffectType getPotionEffectType(me.rexe0.uhcchampions.util.PotionEffectType type) {
+        switch (type) {
+            case SPEED: return PotionEffectType.SPEED;
+            case SLOWNESS: return PotionEffectType.SLOW;
+            case HASTE: return PotionEffectType.FAST_DIGGING;
+            case MINING_FATIGUE: return PotionEffectType.SLOW_DIGGING;
+            case STRENGTH: return PotionEffectType.INCREASE_DAMAGE;
+            case INSTANT_HEALTH: return PotionEffectType.HEAL;
+            case INSTANT_DAMAGE: return PotionEffectType.HARM;
+            case JUMP_BOOST: return PotionEffectType.JUMP;
+            case NAUSEA: return PotionEffectType.CONFUSION;
+            case REGENERATION: return PotionEffectType.REGENERATION;
+            case RESISTANCE: return PotionEffectType.DAMAGE_RESISTANCE;
+            case FIRE_RESISTANCE: return PotionEffectType.FIRE_RESISTANCE;
+            case WATER_BREATHING: return PotionEffectType.WATER_BREATHING;
+            case INVISIBILITY: return PotionEffectType.INVISIBILITY;
+            case BLINDNESS: return PotionEffectType.BLINDNESS;
+            case NIGHT_VISION: return PotionEffectType.NIGHT_VISION;
+            case HUNGER: return PotionEffectType.HUNGER;
+            case WEAKNESS: return PotionEffectType.WEAKNESS;
+            case POISON: return PotionEffectType.POISON;
+            case WITHER: return PotionEffectType.WITHER;
+            case HEALTH_BOOST: return PotionEffectType.HEALTH_BOOST;
+            case ABSORPTION: return PotionEffectType.ABSORPTION;
+            case SATURATION: return PotionEffectType.SATURATION;
+            default: return null;
+        }
+    }
+    @Override
+    public Enchantment getEnchantmentType(EnchantmentType type) {
+        switch (type) {
+            case PROTECTION: return Enchantment.PROTECTION_ENVIRONMENTAL;
+            case FIRE_PROTECTION: return Enchantment.PROTECTION_FIRE;
+            case FEATHER_FALLING: return Enchantment.PROTECTION_FALL;
+            case BLAST_PROTECTION: return Enchantment.PROTECTION_EXPLOSIONS;
+            case PROJECTILE_PROTECTION: return Enchantment.PROTECTION_PROJECTILE;
+            case RESPIRATION: return Enchantment.OXYGEN;
+            case AQUA_AFFINITY: return Enchantment.WATER_WORKER;
+            case THORNS: return Enchantment.THORNS;
+            case DEPTH_STRIDER: return Enchantment.DEPTH_STRIDER;
+            case SHARPNESS: return Enchantment.DAMAGE_ALL;
+            case SMITE: return Enchantment.DAMAGE_UNDEAD;
+            case BANE_OF_ARTHROPODS: return Enchantment.DAMAGE_ARTHROPODS;
+            case KNOCKBACK: return Enchantment.KNOCKBACK;
+            case FIRE_ASPECT: return Enchantment.FIRE_ASPECT;
+            case LOOTING: return Enchantment.LOOT_BONUS_MOBS;
+            case EFFICIENCY: return Enchantment.DIG_SPEED;
+            case SILK_TOUCH: return Enchantment.SILK_TOUCH;
+            case UNBREAKING: return Enchantment.DURABILITY;
+            case FORTUNE: return Enchantment.LOOT_BONUS_BLOCKS;
+            case POWER: return Enchantment.ARROW_DAMAGE;
+            case PUNCH: return Enchantment.ARROW_KNOCKBACK;
+            case FLAME: return Enchantment.ARROW_FIRE;
+            case INFINITY: return Enchantment.ARROW_INFINITE;
+            case LUCK_OF_THE_SEA: return Enchantment.LUCK;
+            case LURE: return Enchantment.LURE;
+            default: return null;
+        }
     }
 }

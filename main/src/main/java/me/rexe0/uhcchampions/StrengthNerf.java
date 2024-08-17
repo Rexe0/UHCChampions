@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+import me.rexe0.uhcchampions.util.PotionEffectType;
 
 public class StrengthNerf implements Listener {
     @EventHandler
@@ -16,10 +16,10 @@ public class StrengthNerf implements Listener {
         if (!VersionUtils.getVersion().equals("1.8")) return;
 
         Player player = (Player) e.getDamager();
-        if (!player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)) return;
+        if (!player.hasPotionEffect(VersionUtils.getVersionUtils().getPotionEffectType(PotionEffectType.STRENGTH))) return;
         int level = 0;
         for (PotionEffect effect : player.getActivePotionEffects()) {
-            if (effect.getType().equals(PotionEffectType.INCREASE_DAMAGE)) {
+            if (effect.getType().equals(VersionUtils.getVersionUtils().getPotionEffectType(PotionEffectType.STRENGTH))) {
                 level = effect.getAmplifier()+1;
                 break;
             }

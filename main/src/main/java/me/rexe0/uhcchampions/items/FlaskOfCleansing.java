@@ -5,6 +5,7 @@ import com.gmail.val59000mc.players.PlayerManager;
 import com.gmail.val59000mc.players.UhcPlayer;
 import me.rexe0.uhcchampions.UHCChampions;
 import me.rexe0.uhcchampions.config.ConfigLoader;
+import me.rexe0.uhcchampions.util.VersionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
@@ -14,7 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+import me.rexe0.uhcchampions.util.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -30,12 +31,12 @@ public class FlaskOfCleansing implements Listener {
     static {
         positiveEffects = new ArrayList<>();
         positiveEffects.add(PotionEffectType.SPEED);
-        positiveEffects.add(PotionEffectType.FAST_DIGGING);
-        positiveEffects.add(PotionEffectType.INCREASE_DAMAGE);
-        positiveEffects.add(PotionEffectType.HEAL);
-        positiveEffects.add(PotionEffectType.JUMP);
+        positiveEffects.add(PotionEffectType.HASTE);
+        positiveEffects.add(PotionEffectType.STRENGTH);
+        positiveEffects.add(PotionEffectType.INSTANT_HEALTH);
+        positiveEffects.add(PotionEffectType.JUMP_BOOST);
         positiveEffects.add(PotionEffectType.REGENERATION);
-        positiveEffects.add(PotionEffectType.DAMAGE_RESISTANCE);
+        positiveEffects.add(PotionEffectType.RESISTANCE);
         positiveEffects.add(PotionEffectType.FIRE_RESISTANCE);
         positiveEffects.add(PotionEffectType.WATER_BREATHING);
         positiveEffects.add(PotionEffectType.INVISIBILITY);
@@ -48,9 +49,9 @@ public class FlaskOfCleansing implements Listener {
     public static void flaskCheck() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (!cleansedPlayers.contains(player.getUniqueId())) continue;
-            for (PotionEffect effect : player.getActivePotionEffects()) {
-                if (!positiveEffects.contains(effect.getType())) continue;
-                player.removePotionEffect(effect.getType());
+            for (PotionEffectType type : positiveEffects) {
+                if (!player.hasPotionEffect(VersionUtils.getVersionUtils().getPotionEffectType(type))) continue;
+                player.removePotionEffect(VersionUtils.getVersionUtils().getPotionEffectType(type));
             }
         }
     }
@@ -77,7 +78,7 @@ public class FlaskOfCleansing implements Listener {
             p.sendMessage(ChatColor.RED+"You have been cursed by "+player.getName()+"! Positive potion effects will no longer work for "+(Math.round(duration/20d*10)/10d)+" seconds.");
 
             if (loader.getItemBoolean(id, "enable-weakness-effect"))
-                p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, duration, 0));
+                p.addPotionEffect(new PotionEffect(VersionUtils.getVersionUtils().getPotionEffectType(PotionEffectType.WEAKNESS), duration, 0));
 
             cleansedPlayers.add(p.getUniqueId());
             new BukkitRunnable() {

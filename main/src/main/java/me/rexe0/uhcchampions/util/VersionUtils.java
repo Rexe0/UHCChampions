@@ -3,10 +3,12 @@ package me.rexe0.uhcchampions.util;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.potion.PotionEffectType;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
@@ -68,4 +70,6 @@ public abstract class VersionUtils {
     public abstract int getArrowsStuckInBody(LivingEntity entity);
 
     public abstract void setArrowsStuckInBody(LivingEntity entity, int amount);
+    public abstract PotionEffectType getPotionEffectType(me.rexe0.uhcchampions.util.PotionEffectType type);
+    public abstract Enchantment getEnchantmentType(EnchantmentType type);
 }

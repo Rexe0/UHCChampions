@@ -2,7 +2,9 @@ package me.rexe0.uhcchampions.items;
 
 import me.rexe0.uhcchampions.UHCChampions;
 import me.rexe0.uhcchampions.config.ConfigLoader;
+import me.rexe0.uhcchampions.util.EnchantmentType;
 import me.rexe0.uhcchampions.util.Sound;
+import me.rexe0.uhcchampions.util.VersionUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
@@ -17,7 +19,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+import me.rexe0.uhcchampions.util.PotionEffectType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,9 +52,9 @@ public class ModularBow implements Listener {
         modularMode.put(uuid, mode);
 
         if (mode == 0) {
-            e.getItem().addEnchantment(Enchantment.ARROW_KNOCKBACK, 1);
+            e.getItem().addEnchantment(VersionUtils.getVersionUtils().getEnchantmentType(EnchantmentType.PUNCH), 1);
         } else
-            e.getItem().removeEnchantment(Enchantment.ARROW_KNOCKBACK);
+            e.getItem().removeEnchantment(VersionUtils.getVersionUtils().getEnchantmentType(EnchantmentType.PUNCH));
         e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.CLICK.getSound(), 1, 0);
         e.getPlayer().sendMessage(ChatColor.GREEN+"Changed mode to "+modeName[mode]);
     }
@@ -84,9 +86,9 @@ public class ModularBow implements Listener {
         ConfigLoader loader = UHCChampions.getConfigLoader();
 
         if (arrow.hasMetadata("modularPoison")) {
-            entity.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 50, 1));
+            entity.addPotionEffect(new PotionEffect(VersionUtils.getVersionUtils().getPotionEffectType(PotionEffectType.POISON), 50, 1));
             if (loader.getItemBoolean(id, "enable-poison-slow"))
-                entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 50, 0));
+                entity.addPotionEffect(new PotionEffect(VersionUtils.getVersionUtils().getPotionEffectType(PotionEffectType.POISON), 50, 0));
         }
         if (arrow.hasMetadata("modularLightning")) {
             entity.getWorld().strikeLightningEffect(entity.getLocation());

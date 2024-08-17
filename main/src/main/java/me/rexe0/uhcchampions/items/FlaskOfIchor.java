@@ -5,6 +5,7 @@ import com.gmail.val59000mc.players.PlayerManager;
 import com.gmail.val59000mc.players.UhcPlayer;
 import me.rexe0.uhcchampions.UHCChampions;
 import me.rexe0.uhcchampions.config.ConfigLoader;
+import me.rexe0.uhcchampions.util.VersionUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,7 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+import me.rexe0.uhcchampions.util.PotionEffectType;
 
 public class FlaskOfIchor implements Listener {
     private static final String id = "flask-of-cleansing";
@@ -33,7 +34,7 @@ public class FlaskOfIchor implements Listener {
             if (uhcPlayer.isInTeamWith(manager.getUhcPlayer((Player)entity))) continue;
             Player p = (Player) entity;
 
-            p.addPotionEffect(new PotionEffect(PotionEffectType.HARM, 1, loader.getItemInteger(id, "amplifier")));
+            p.addPotionEffect(new PotionEffect(VersionUtils.getVersionUtils().getPotionEffectType(PotionEffectType.INSTANT_DAMAGE), 1, loader.getItemInteger(id, "amplifier")));
         }
     }
 }
