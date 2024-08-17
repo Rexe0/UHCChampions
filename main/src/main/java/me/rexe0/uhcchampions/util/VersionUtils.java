@@ -8,6 +8,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.lang.reflect.InvocationTargetException;
@@ -49,6 +50,7 @@ public abstract class VersionUtils {
 
 
     public abstract double getMaxHealth(Player player);
+    public abstract PotionEffect getPotionEffect(LivingEntity entity, me.rexe0.uhcchampions.util.PotionEffectType type);
 
     public abstract ItemStack getPlayerSkull(Player player);
 

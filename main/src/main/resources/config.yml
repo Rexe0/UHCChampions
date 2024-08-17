@@ -123,6 +123,9 @@ items:
     max-arrows: 4
     # How many arrows it takes before the ability is triggered
     trigger-requirement: 5
+  # Steals regeneration and absorption effects on hit
+  vampire-fang:
+    name: "Vampire Fang"
   warlock-pants:
     name: "Warlock Pants"
     # The maximum damage reduction that can be achieved (at 0% health, 50% health is 50% of this value) 0.2 is 20%, 1.0 is 100%

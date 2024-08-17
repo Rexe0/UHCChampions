@@ -1,0 +1,49 @@
+package me.rexe0.uhcchampions.items;
+
+import me.rexe0.uhcchampions.UHCChampions;
+import me.rexe0.uhcchampions.config.ConfigLoader;
+import me.rexe0.uhcchampions.util.PotionEffectType;
+import me.rexe0.uhcchampions.util.VersionUtils;
+import org.bukkit.Material;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.HashSet;
+import java.util.UUID;
+
+public class VampireFang implements Listener {
+    private static final String id = "vampire-fang";
+
+    @EventHandler
+    public void onHit(EntityDamageByEntityEvent e) {
+        if (!(e.getEntity() instanceof LivingEntity) || !(e.getDamager() instanceof Player)) return;
+        Player damager = (Player) e.getDamager();
+
+        ItemStack item = VersionUtils.getVersionUtils().getItemInMainhand(damager);
+        ConfigLoader loader = UHCChampions.getConfigLoader();
+
+        if (!UHCChampions.isItem(item, loader.getItemName(id))) return;
+
+        LivingEntity entity = (LivingEntity) e.getEntity();
+
+        org.bukkit.potion.PotionEffectType regen = VersionUtils.getVersionUtils().getPotionEffectType(PotionEffectType.REGENERATION);
+        if (entity.hasPotionEffect(regen)) {
+            PotionEffect effect = VersionUtils.getVersionUtils().getPotionEffect(entity, PotionEffectType.REGENERATION);
+            damager.addPotionEffect(new PotionEffect(regen, effect.getDuration(), effect.getAmplifier()), true);
+            entity.removePotionEffect(regen);
+        }
+
+        org.bukkit.potion.PotionEffectType absorption = VersionUtils.getVersionUtils().getPotionEffectType(PotionEffectType.ABSORPTION);
+        if (entity.hasPotionEffect(absorption)) {
+            PotionEffect effect = VersionUtils.getVersionUtils().getPotionEffect(entity, PotionEffectType.ABSORPTION);
+            damager.addPotionEffect(new PotionEffect(absorption, effect.getDuration(), effect.getAmplifier()), true);
+            entity.removePotionEffect(absorption);
+        }
+    }
+}

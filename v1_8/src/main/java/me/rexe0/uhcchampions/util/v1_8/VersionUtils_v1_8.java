@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.Random;
@@ -34,6 +35,13 @@ public class VersionUtils_v1_8 extends VersionUtils {
     @Override
     public double getMaxHealth(Player player) {
         return player.getMaxHealth();
+    }
+
+    @Override
+    public PotionEffect getPotionEffect(LivingEntity entity, me.rexe0.uhcchampions.util.PotionEffectType type) {
+        for (PotionEffect effect : entity.getActivePotionEffects())
+            if (effect.getType().equals(getPotionEffectType(type))) return effect;
+        return null;
     }
 
     @Override
