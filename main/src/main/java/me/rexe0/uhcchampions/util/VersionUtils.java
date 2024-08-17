@@ -66,6 +66,7 @@ public abstract class VersionUtils {
     public abstract ItemStack addAttribute(ItemStack item, Attribute attribute, double amount, int operation, String slot);
 
     public abstract void spawnBloodParticle(Location location);
+    public abstract void spawnExplosionParticle(Location location);
 
     public abstract int getArrowsStuckInBody(LivingEntity entity);
 

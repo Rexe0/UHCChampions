@@ -110,6 +110,15 @@ public class VersionUtils_v1_8 extends VersionUtils {
     }
 
     @Override
+    public void spawnExplosionParticle(Location location) {
+
+        PacketPlayOutWorldParticles particlePacket = new PacketPlayOutWorldParticles(EnumParticle.EXPLOSION_LARGE, true, (float) location.getX(), (float) (location.getY()), (float) location.getZ(), 0.25f, 0.25f, 0.25f, 0f, 1);
+
+        for (Player p : location.getWorld().getPlayers())
+            ((CraftPlayer) p).getHandle().playerConnection.sendPacket(particlePacket);
+    }
+
+    @Override
     public int getArrowsStuckInBody(LivingEntity entity) {
         return ((CraftLivingEntity) entity).getHandle().getDataWatcher().getByte(9);
     }

@@ -112,6 +112,11 @@ public class VersionUtils_v1_19 extends VersionUtils {
     }
 
     @Override
+    public void spawnExplosionParticle(Location location) {
+        location.getWorld().spawnParticle(Particle.EXPLOSION_LARGE, location, 1, 0.25, 0.25, 0.25, 0);
+    }
+
+    @Override
     public int getArrowsStuckInBody(LivingEntity entity) {
         return entity.getArrowsInBody();
     }

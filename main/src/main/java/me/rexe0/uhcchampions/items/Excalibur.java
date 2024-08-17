@@ -39,6 +39,7 @@ public class Excalibur implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
+                VersionUtils.getVersionUtils().spawnExplosionParticle(entity.getEyeLocation());
                 UHCChampions.dealTrueDamage(entity, loader.getItemDouble(id, "damage"));
             }
         }.runTaskLater(UHCChampions.getInstance(), 1);
