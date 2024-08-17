@@ -73,6 +73,7 @@ public final class UHCChampions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Excalibur(), this);
         getServer().getPluginManager().registerEvents(new DiceOfGod(), this);
         getServer().getPluginManager().registerEvents(new VampireFang(), this);
+        getServer().getPluginManager().registerEvents(new MythrilMantle(), this);
         recipes = new ArrayList<>();
         if (UHCChampions.getConfigLoader().isGoldenHeads())
             recipes.add(PlayerHead.goldenHeadCraft());

@@ -114,6 +114,13 @@ items:
     damage: 2.0
     # Whether the poison mode should also slow the target
     enable-poison-slow: true
+  # A chestplate which gives speed upon getting hit by an arrow
+  mythril-mantle:
+    name: "Mythril Mantle"
+    # Duration of the effect in ticks. There are 20 ticks in a second, so 80 ticks is 4 seconds.
+    duration: 80
+    # Amplifier of the effect. 0 is Speed I, 1 is Speed II
+    amplifier: 1
   # A bow which when shot 5 times, the 5th arrow rips out all other arrows in the target dealing physical damage
   terminator:
     name: "Terminator"
@@ -156,3 +163,5 @@ item-enchant-disabled:
   - "&aKing's Rod"
   - "&aBarbarian Chestplate"
   - "&aExcalibur"
+  - "&aVampire Fang"
+  - "&aMythril Mantle"
