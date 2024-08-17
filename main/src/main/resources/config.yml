@@ -71,6 +71,9 @@ items:
     damage: 0.2
     # Cooldown in ticks. There are 20 ticks in a second, so 60 ticks is 3 seconds.
     cooldown: 60
+  # Grants a random custom item
+  dice-of-god:
+    name: "Dice of God"
   # Has a different base damage
   dragon-sword:
     name: "Dragon Sword"
