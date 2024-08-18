@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
@@ -19,9 +20,10 @@ public class DeathScythe implements Listener {
     private static final HashSet<UUID> scytheCooldown = new HashSet<>();
     private static final String id = "death-scythe";
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onHit(EntityDamageByEntityEvent e) {
         if (!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof Player)) return;
+        if (e.isCancelled()) return;
         Player damager = (Player) e.getDamager();
         if (scytheCooldown.contains(damager.getUniqueId())) return;
 

@@ -5,6 +5,7 @@ import me.rexe0.uhcchampions.config.ConfigLoader;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
@@ -13,10 +14,11 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Exodus implements Listener {
     private static final String id = "exodus";
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onHit(EntityDamageByEntityEvent e) {
         Player damager = null;
         if (!(e.getEntity() instanceof Player)) return;
+        if (e.isCancelled()) return;
         if (e.getDamager() instanceof Projectile) {
             Projectile proj = (Projectile) e.getDamager();
             if (proj.getShooter() != null && proj.getShooter() instanceof Player) {

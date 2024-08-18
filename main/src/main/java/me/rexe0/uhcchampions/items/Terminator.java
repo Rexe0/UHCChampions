@@ -9,6 +9,7 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
@@ -44,12 +45,13 @@ public class Terminator implements Listener {
         e.getProjectile().setMetadata("terminatorArrow", new FixedMetadataValue(UHCChampions.getInstance(), true));
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onHit(EntityDamageByEntityEvent e) {
         if (!(e.getDamager() instanceof Arrow)) return;
         Arrow damager = (Arrow) e.getDamager();
 
         if (!(damager.getShooter() instanceof Player) || !(e.getEntity() instanceof LivingEntity)) return;
+        if (e.isCancelled()) return;
         LivingEntity entity = (LivingEntity) e.getEntity();
 
         if (!damager.hasMetadata("terminatorArrow")) return;

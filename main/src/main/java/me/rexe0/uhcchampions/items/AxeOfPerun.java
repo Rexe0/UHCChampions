@@ -6,6 +6,7 @@ import me.rexe0.uhcchampions.util.VersionUtils;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
@@ -18,9 +19,10 @@ public class AxeOfPerun implements Listener {
     private final String id = "axe-of-perun";
     private static final HashSet<UUID> perunCooldown = new HashSet<>();
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onHit(EntityDamageByEntityEvent e) {
         if (!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof Player)) return;
+        if (e.isCancelled()) return;
 
         Player damager = (Player) e.getDamager();
         if (perunCooldown.contains(damager.getUniqueId())) return;

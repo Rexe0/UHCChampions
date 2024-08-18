@@ -4,25 +4,22 @@ import me.rexe0.uhcchampions.UHCChampions;
 import me.rexe0.uhcchampions.config.ConfigLoader;
 import me.rexe0.uhcchampions.util.PotionEffectType;
 import me.rexe0.uhcchampions.util.VersionUtils;
-import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.HashSet;
-import java.util.UUID;
 
 public class VampireFang implements Listener {
     private static final String id = "vampire-fang";
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onHit(EntityDamageByEntityEvent e) {
-        if (!(e.getEntity() instanceof LivingEntity) || !(e.getDamager() instanceof Player)) return;
+        if (!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof Player)) return;
+        if (e.isCancelled()) return;
         Player damager = (Player) e.getDamager();
 
         ItemStack item = VersionUtils.getVersionUtils().getItemInMainhand(damager);

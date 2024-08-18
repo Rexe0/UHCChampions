@@ -6,6 +6,7 @@ import me.rexe0.uhcchampions.util.VersionUtils;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
@@ -18,9 +19,10 @@ import java.util.UUID;
 public class Excalibur implements Listener {
     private Map<UUID, Integer> consecutiveHits = new HashMap<>();
     private static final String id = "excalibur";
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onHit(EntityDamageByEntityEvent e) {
         if (!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof Player)) return;
+        if (e.isCancelled()) return;
         Player damager = (Player) e.getDamager();
 
         ItemStack item = VersionUtils.getVersionUtils().getItemInMainhand(damager);
@@ -44,9 +46,10 @@ public class Excalibur implements Listener {
             }
         }.runTaskLater(UHCChampions.getInstance(), 1);
     }
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onHitByEntity(EntityDamageByEntityEvent e) {
         if (!(e.getEntity() instanceof Player)) return;
+        if (e.isCancelled()) return;
         Player player = (Player) e.getEntity();
 
         ItemStack item = VersionUtils.getVersionUtils().getItemInMainhand(player);

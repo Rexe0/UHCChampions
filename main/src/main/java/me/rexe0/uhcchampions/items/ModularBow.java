@@ -3,14 +3,15 @@ package me.rexe0.uhcchampions.items;
 import me.rexe0.uhcchampions.UHCChampions;
 import me.rexe0.uhcchampions.config.ConfigLoader;
 import me.rexe0.uhcchampions.util.EnchantmentType;
+import me.rexe0.uhcchampions.util.PotionEffectType;
 import me.rexe0.uhcchampions.util.Sound;
 import me.rexe0.uhcchampions.util.VersionUtils;
 import org.bukkit.ChatColor;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -19,7 +20,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
-import me.rexe0.uhcchampions.util.PotionEffectType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -76,10 +76,11 @@ public class ModularBow implements Listener {
         }
         arrow.setMetadata("modular" + modeName[modularMode.get(player.getUniqueId())], new FixedMetadataValue(UHCChampions.getInstance(), true));
     }
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onHit(EntityDamageByEntityEvent e) {
         if (!(e.getDamager() instanceof Arrow)) return;
         if (!(e.getEntity() instanceof LivingEntity)) return;
+        if (e.isCancelled()) return;
         LivingEntity entity = (LivingEntity) e.getEntity();
         Arrow arrow = (Arrow) e.getDamager();
 

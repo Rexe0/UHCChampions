@@ -7,6 +7,7 @@ import me.rexe0.uhcchampions.util.VersionUtils;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
@@ -15,9 +16,10 @@ import org.bukkit.potion.PotionEffect;
 public class MythrilMantle implements Listener {
     private static final String id = "mythril-mantle";
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onHit(EntityDamageByEntityEvent e) {
         if (!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof Arrow)) return;
+        if (e.isCancelled()) return;
         Player player = (Player) e.getEntity();
 
         ItemStack item = player.getInventory().getChestplate();
