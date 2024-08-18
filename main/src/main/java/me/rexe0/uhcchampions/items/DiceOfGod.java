@@ -4,19 +4,12 @@ import com.gmail.val59000mc.customitems.Craft;
 import com.gmail.val59000mc.customitems.CraftsManager;
 import me.rexe0.uhcchampions.UHCChampions;
 import me.rexe0.uhcchampions.config.ConfigLoader;
-import me.rexe0.uhcchampions.util.Attribute;
-import me.rexe0.uhcchampions.util.VersionUtils;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class DiceOfGod implements Listener {
@@ -82,6 +75,8 @@ public class DiceOfGod implements Listener {
             ItemStack item = craft.getCraft();
             if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) continue;
             if (!ChatColor.stripColor(item.getItemMeta().getDisplayName()).equals(name)) continue;
+            if (ChatColor.stripColor(item.getItemMeta().getDisplayName()).equals("Dragon Sword"))
+                return DragonSword.getItem();
             return item;
         }
         return null;

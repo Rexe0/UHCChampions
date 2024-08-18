@@ -24,6 +24,13 @@ public class DragonSword implements Listener {
         ConfigLoader loader = UHCChampions.getConfigLoader();
 
         if (!UHCChampions.isItem(result, loader.getItemName(id))) return;
+
+        e.getInventory().setResult(getItem());
+    }
+
+    public static ItemStack getItem() {
+        ConfigLoader loader = UHCChampions.getConfigLoader();
+
         ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(ChatColor.GREEN + "Dragon Sword");
@@ -32,12 +39,10 @@ public class DragonSword implements Listener {
         meta.setLore(lore);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
-        item = VersionUtils.getVersionUtils().addAttribute(item, Attribute.GENERIC_ATTACK_DAMAGE, loader.getItemDouble(id, "damage")-1, 0, "HAND");
-
+        item = VersionUtils.getVersionUtils().addAttribute(item, Attribute.GENERIC_ATTACK_DAMAGE, loader.getItemDouble(id, "damage"), 0, "HAND");
 
         if (!VersionUtils.getVersion().equals("1.8"))
             item = VersionUtils.getVersionUtils().addAttribute(item, Attribute.GENERIC_ATTACK_SPEED, -loader.getItemDouble(id, "attack-speed-reduction"), 0, "HAND");
-
-        e.getInventory().setResult(item);
+        return item;
     }
 }
