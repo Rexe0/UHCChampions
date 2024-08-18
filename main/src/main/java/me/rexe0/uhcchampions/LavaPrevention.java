@@ -22,7 +22,7 @@ public class LavaPrevention implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
-        if (player.getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.LAVA
+        if ((player.getLastDamageCause() != null && player.getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.LAVA)
                 || player.getLocation().getBlock().getType().toString().contains("LAVA")
                 || player.getEyeLocation().getBlock().getType().toString().contains("LAVA")) {
 
