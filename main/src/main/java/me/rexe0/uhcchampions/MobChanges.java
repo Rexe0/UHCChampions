@@ -20,7 +20,7 @@ public class MobChanges implements Listener {
         if (e.getSpawnReason() != CreatureSpawnEvent.SpawnReason.NATURAL) return;
         if (!(e.getEntity() instanceof PigZombie)) return;
         if (!UHCChampions.getConfigLoader().isMobChanges()) return;
-        if (rand.nextInt(3) != 0) return;
+        if (rand.nextInt(4) != 0) return;
 
         Location location = e.getEntity().getLocation();
         e.setCancelled(true);
