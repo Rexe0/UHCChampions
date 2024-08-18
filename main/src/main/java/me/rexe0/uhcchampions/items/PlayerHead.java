@@ -11,6 +11,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -28,7 +29,7 @@ import java.util.UUID;
 
 public class PlayerHead implements Listener {
     private static final HashSet<UUID> headCooldown = new HashSet<>();
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onDeath(PlayerDeathEvent e) {
         if (!UHCChampions.getConfigLoader().isPlayerHeads()) return;
         Player player = e.getEntity();
@@ -38,7 +39,7 @@ public class PlayerHead implements Listener {
         meta.setDisplayName(ChatColor.RED+player.getName()+ChatColor.RESET+"'s Head");
         item.setItemMeta(meta);
 
-        player.getWorld().dropItem(player.getLocation(), item);
+        e.getDrops().add(item);
     }
 
     @EventHandler
