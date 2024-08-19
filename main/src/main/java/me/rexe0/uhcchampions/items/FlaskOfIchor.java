@@ -5,6 +5,7 @@ import com.gmail.val59000mc.players.PlayerManager;
 import com.gmail.val59000mc.players.UhcPlayer;
 import me.rexe0.uhcchampions.UHCChampions;
 import me.rexe0.uhcchampions.config.ConfigLoader;
+import me.rexe0.uhcchampions.util.PotionEffectType;
 import me.rexe0.uhcchampions.util.VersionUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -13,10 +14,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
-import me.rexe0.uhcchampions.util.PotionEffectType;
 
 public class FlaskOfIchor implements Listener {
-    private static final String id = "flask-of-cleansing";
+    private static final String id = "flask-of-ichor";
     @EventHandler
     public void onHit(PotionSplashEvent e) {
         if (e.getEntity().getShooter() == null || !(e.getEntity().getShooter() instanceof Player)) return;
