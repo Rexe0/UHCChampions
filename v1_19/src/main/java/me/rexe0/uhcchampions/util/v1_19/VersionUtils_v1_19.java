@@ -40,6 +40,11 @@ public class VersionUtils_v1_19 extends VersionUtils {
         return player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
     }
 
+    @Override
+    public double getAbsorptionAmount(Player player) {
+        return player.getAbsorptionAmount();
+    }
+
 
     @Override
     public PotionEffect getPotionEffect(LivingEntity entity, me.rexe0.uhcchampions.util.PotionEffectType type) {

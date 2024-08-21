@@ -50,6 +50,8 @@ public abstract class VersionUtils {
 
 
     public abstract double getMaxHealth(Player player);
+    public abstract double getAbsorptionAmount(Player player);
+
     public abstract PotionEffect getPotionEffect(LivingEntity entity, me.rexe0.uhcchampions.util.PotionEffectType type);
 
     public abstract ItemStack getPlayerSkull(Player player);

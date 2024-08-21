@@ -42,6 +42,11 @@ public class VersionUtils_v1_20 extends VersionUtils {
     }
 
     @Override
+    public double getAbsorptionAmount(Player player) {
+        return player.getAbsorptionAmount();
+    }
+
+    @Override
     public PotionEffect getPotionEffect(LivingEntity entity, me.rexe0.uhcchampions.util.PotionEffectType type) {
         return entity.getPotionEffect(getPotionEffectType(type));
     }

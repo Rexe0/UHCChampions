@@ -86,10 +86,14 @@ public class PlayerHead implements Listener {
                     }
                 }
         } else {
+
             if (!UHCChampions.getConfigLoader().isGoldenHeads()) return;
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2));
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 520, 1), true);
-            player.sendMessage(ChatColor.GREEN + "You ate a " + ChatColor.GOLD + "Golden Head" + ChatColor.GREEN + " which gave you Regeneration III for 5 seconds and Speed II for 26 seconds.");
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 400, 1), true);
+            if (VersionUtils.getVersionUtils().getAbsorptionAmount(player) < 4)
+                player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0), true);
+
+            player.sendMessage(ChatColor.GREEN + "You ate a " + ChatColor.GOLD + "Golden Head" + ChatColor.GREEN + " which gave you Regeneration III for 5 seconds, Absorption I for 120 seconds and Speed II for 20 seconds.");
 
             for (UhcPlayer p : manager.getPlayersList()) {
                 try {
