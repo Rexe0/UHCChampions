@@ -11,6 +11,9 @@ import java.util.Comparator;
 public class SpectatorFix {
     private static final double MAX_DISTANCE = 100;
     public static void run() {
+        if (!UHCChampions.getConfigLoader().isSpectatorFix()) return;
+
+
         PlayerManager manager = GameManager.getGameManager().getPlayerManager();
         for (Player player : Bukkit.getOnlinePlayers()) {
             UhcPlayer uhcPlayer = manager.getUhcPlayer(player);
