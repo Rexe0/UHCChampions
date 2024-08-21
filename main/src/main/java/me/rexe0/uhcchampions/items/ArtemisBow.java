@@ -16,6 +16,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import java.util.Random;
 
 public class ArtemisBow implements Listener {
+    private static final Random random = new Random();
     private static final String id = "artemis-bow";
     @EventHandler
     public void onShoot(EntityShootBowEvent e) {
@@ -29,7 +30,7 @@ public class ArtemisBow implements Listener {
         // Ensure homing arrows don't fire before pvp starts
         if (!manager.getPvp()) return;
 
-        if ((new Random()).nextInt(100) < loader.getItemInteger(id, "chance")) return;
+        if (random.nextInt(100) < loader.getItemInteger(id, "chance")) return;
         Arrow arrow = (Arrow) e.getProjectile();
 
 

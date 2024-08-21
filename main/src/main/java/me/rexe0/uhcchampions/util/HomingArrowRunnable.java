@@ -1,6 +1,7 @@
 package me.rexe0.uhcchampions.util;
 
 import com.gmail.val59000mc.game.GameManager;
+import com.gmail.val59000mc.players.PlayerManager;
 import com.gmail.val59000mc.players.UhcPlayer;
 import org.bukkit.Location;
 import org.bukkit.entity.Arrow;
@@ -87,16 +88,18 @@ public class HomingArrowRunnable extends BukkitRunnable {
 
     private void setTarget() {
         List<Player> nearbyEntities = new ArrayList<>();
-        UhcPlayer player = GameManager.getGameManager().getPlayerManager().getUhcPlayer(shooter);
+        PlayerManager manager = GameManager.getGameManager().getPlayerManager();
+        UhcPlayer player = manager.getUhcPlayer(shooter);
         for (Entity entity : arrow.getNearbyEntities(8, 8, 8)) {
             if (!(entity instanceof Player)) continue;
             Player p = (Player) entity;
             if (!p.hasLineOfSight(arrow)) continue;
-            if (GameManager.getGameManager().getPlayerManager().getUhcPlayer(p).isInTeamWith(player)) continue;
+            if (manager.getUhcPlayer(p).isInTeamWith(player)) continue;
+            if (manager.getUhcPlayer(p).isDead()) continue;
             nearbyEntities.add(p);
         }
 
-        if (nearbyEntities.size() == 0)
+        if (nearbyEntities.isEmpty())
             return;
 
         Optional<Player> optionalEntity = nearbyEntities.stream()
