@@ -57,8 +57,6 @@ items:
   # Upon use, caps all melee damage taken to a percentage of your max health
   chalice-of-grace:
     name: "Chalice of Grace"
-    # Percent of max health as represented by decimal (0.05 is 5%, 1.0 is 100%)
-    cap: 0.05
     # Duration in ticks. There are 20 ticks in a second, so 100 ticks is 5 seconds.
     duration: 100
   # Instantly consumed to grant regeneration and saturation
