@@ -41,8 +41,13 @@ public class ViewInventoryCommand implements CommandExecutor, Listener {
 
 
         Player target = Bukkit.getPlayer(args[0]);
+        if (target == null)  {
+            sender.sendMessage(ChatColor.RED + "Not a valid player.");
+            return true;
+        }
         UhcPlayer uhcTarget = GameManager.getGameManager().getPlayerManager().getUhcPlayer(target);
-        if (target == null || uhcTarget.isDead())  {
+
+        if (uhcTarget.isDead())  {
             sender.sendMessage(ChatColor.RED + "Not a valid player.");
             return true;
         }
