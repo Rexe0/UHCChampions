@@ -26,6 +26,9 @@ enable-double-golden-apple-healing: true
 # Enables a setting where spectators can only spectate alive teammates (anyone if solo) and can't move farther than 100 blocks from them
 enable-spectator-fix: true
 
+# Enables the 'viewinventory' command which allows spectators to see the inventories of alive teammates (anyone if solo)
+enable-view-inventory: true
+
 # Configure the items of UHCChampions (Their damage and names usually.)
 # For recipe, enchantments, and other things, use UHCCore's files
 # Note: The name option here only changes how the plugin will recognise the item

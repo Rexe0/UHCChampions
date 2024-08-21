@@ -24,6 +24,7 @@ public class ConfigLoader implements CommandExecutor {
     private boolean goldenHeads;
     private boolean doubleGoldenAppleHealing;
     private boolean spectatorFix;
+    private boolean viewInventory;
     private Map<String, Map<String, Object>> itemMap;
     private List<String> disabledEnchantItems;
 
@@ -42,6 +43,7 @@ public class ConfigLoader implements CommandExecutor {
         doubleGoldenAppleHealing = config.getBoolean("enable-double-golden-apple-healing");
         doubleGoldenAppleHealing = config.getBoolean("enable-double-golden-apple-healing");
         spectatorFix = config.getBoolean("enable-spectator-fix");
+        viewInventory = config.getBoolean("enable-view-inventory");
 
         itemMap = new HashMap<>();
         for (String section : config.getConfigurationSection("items").getKeys(false)) {
@@ -108,6 +110,10 @@ public class ConfigLoader implements CommandExecutor {
 
     public boolean isSpectatorFix() {
         return spectatorFix;
+    }
+
+    public boolean isViewInventory() {
+        return viewInventory;
     }
 
     @Override

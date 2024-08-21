@@ -6,3 +6,7 @@ commands:
   uhcchampionsreload:
     description: Reloads the config
     usage: /uhcchampionsreload
+  viewinventory:
+    description: View the inventory of a player
+    usage: /viewinventory <player>
+    aliases: [invsee, seeinv]

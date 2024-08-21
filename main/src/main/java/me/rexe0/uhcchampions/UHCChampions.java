@@ -1,5 +1,6 @@
 package me.rexe0.uhcchampions;
 
+import me.rexe0.uhcchampions.commands.ViewInventoryCommand;
 import me.rexe0.uhcchampions.config.ConfigLoader;
 import me.rexe0.uhcchampions.items.Terminator;
 import me.rexe0.uhcchampions.items.*;
@@ -47,6 +48,10 @@ public final class UHCChampions extends JavaPlugin {
         ScoreFile.loadData();
 
         // Plugin startup logic
+        ViewInventoryCommand viewInventoryCommand = new ViewInventoryCommand();
+        getServer().getPluginCommand("viewinventory").setExecutor(viewInventoryCommand);
+        getServer().getPluginManager().registerEvents(viewInventoryCommand, this);
+
         getServer().getPluginManager().registerEvents(new PlayerHead(), this);
         getServer().getPluginManager().registerEvents(new Exodus(), this);
         getServer().getPluginManager().registerEvents(new DragonSword(), this);
