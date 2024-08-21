@@ -88,6 +88,7 @@ public final class UHCChampions extends JavaPlugin {
                     CompassTracker.run();
                     FlaskOfCleansing.flaskCheck();
                 }
+                SpectatorFix.run();
             }
         }.runTaskTimer(this, 20, 10);
     }
