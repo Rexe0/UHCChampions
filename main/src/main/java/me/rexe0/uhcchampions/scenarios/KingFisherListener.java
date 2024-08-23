@@ -29,7 +29,7 @@ public class KingFisherListener extends ScenarioListener {
     }
 
     // Percent chance of fishing up custom item.
-    private final int chance = 4;
+    private final int chance = 5;
 
     @EventHandler
     public void onFish(PlayerFishEvent e) {
