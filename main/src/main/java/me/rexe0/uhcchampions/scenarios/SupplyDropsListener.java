@@ -26,6 +26,7 @@ import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.Random;
 
 public class SupplyDropsListener extends ScenarioListener {
@@ -72,7 +73,7 @@ public class SupplyDropsListener extends ScenarioListener {
                 player.sendMessage(ChatColor.DARK_RED+"[Supply Drops]"+ChatColor.GOLD+" A supply drop is falling at "+ChatColor.WHITE+"X: "+loc.getBlockX()+" Z:"+loc.getBlockZ());
 
             SupplyDrop drop = new SupplyDrop(loc);
-            drop.createSupplyDrop();
+            drop.spawn();
 
             this.listener.taskId = Bukkit.getScheduler().scheduleSyncDelayedTask(UhcCore.getPlugin(), this, this.listener.period);
         }
@@ -92,7 +93,24 @@ public class SupplyDropsListener extends ScenarioListener {
             this.location = location;
         }
 
-        public void createSupplyDrop() {
+        public void spawn() {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    OptionalDouble distance = Bukkit.getOnlinePlayers().stream()
+                            .filter(p -> !GameManager.getGameManager().getPlayerManager().getUhcPlayer(p).isDead())
+                            .mapToDouble(p -> p.getLocation().distanceSquared(location))
+                            .min();
+                    if (distance.isPresent() && distance.getAsDouble() <= 10000) {
+                        createSupplyDrop();
+                        cancel();
+                        return;
+                    }
+
+                }
+            }.runTaskTimer(UHCChampions.getInstance(), 20, 50);
+        }
+        private void createSupplyDrop() {
             FallingBlock block = location.getWorld().spawnFallingBlock(location, me.rexe0.uhcchampions.util.Material.SPAWNER.getMaterial(), (byte) 0);
             block.setDropItem(false);
 
@@ -111,20 +129,39 @@ public class SupplyDropsListener extends ScenarioListener {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    if (chicken.isOnGround()) {
+                    OptionalDouble distance = Bukkit.getOnlinePlayers().stream()
+                            .filter(p -> !GameManager.getGameManager().getPlayerManager().getUhcPlayer(p).isDead())
+                            .mapToDouble(p -> p.getLocation().distanceSquared(location))
+                            .min();
+                    if (distance.isPresent() && distance.getAsDouble() > 12100) {
                         Location loc = chicken.getLocation();
-                        Block blk = loc.getBlock();
+                        while (loc.getBlockY() > 0) {
+                            loc.subtract(0, 1, 0);
+                            if (!loc.getBlock().getType().isSolid()) continue;
+                            loc.add(0, 1, 0);
+                            spawnChest(loc);
+                            cancel();
+                            return;
+                        }
+                    }
+                    if (chicken.isOnGround()) {
+                        spawnChest(chicken.getLocation());
 
-                        blk.setType(Material.CHEST);
 
-                        Chest chest = (Chest) blk.getState();
-                        chest.getBlockInventory().setContents(generateItems());
-
-                        block.remove();
-                        chicken.remove();
                         cancel();
                         return;
                     }
+                }
+
+                private void spawnChest(Location location) {
+                    Block blk = location.getBlock();
+                    blk.setType(Material.CHEST);
+
+                    Chest chest = (Chest) blk.getState();
+                    chest.getBlockInventory().setContents(generateItems());
+
+                    block.remove();
+                    chicken.remove();
                 }
             }.runTaskTimer(UHCChampions.getInstance(), 5, 10);
         }
