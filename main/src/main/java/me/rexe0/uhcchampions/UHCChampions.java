@@ -1,9 +1,16 @@
 package me.rexe0.uhcchampions;
 
+import com.gmail.val59000mc.game.GameManager;
+import com.gmail.val59000mc.scenarios.Scenario;
+import com.gmail.val59000mc.utils.UniversalMaterial;
 import me.rexe0.uhcchampions.commands.ViewInventoryCommand;
 import me.rexe0.uhcchampions.config.ConfigLoader;
 import me.rexe0.uhcchampions.items.Terminator;
 import me.rexe0.uhcchampions.items.*;
+import me.rexe0.uhcchampions.scenarios.EarlySurfaceListener;
+import me.rexe0.uhcchampions.scenarios.GamblersDreamListener;
+import me.rexe0.uhcchampions.scenarios.KingFisherListener;
+import me.rexe0.uhcchampions.scenarios.SupplyDropsListener;
 import me.rexe0.uhcchampions.score.ScoreDisplay;
 import me.rexe0.uhcchampions.score.ScoreFile;
 import me.rexe0.uhcchampions.score.ScoreListener;
@@ -33,6 +40,11 @@ public final class UHCChampions extends JavaPlugin {
     public static ConfigLoader getConfigLoader() {
         return configLoader;
     }
+
+    private static final Scenario EARLY_SURFACE = new Scenario("early_surface", UniversalMaterial.GRASS_BLOCK, EarlySurfaceListener.class);
+    private static final Scenario GAMBLERS_DREAM = new Scenario("gamblers_dream", UniversalMaterial.END_PORTAL_FRAME, GamblersDreamListener.class);
+    private static final Scenario KING_FISHER = new Scenario("king_fisher", UniversalMaterial.PUFFERFISH, KingFisherListener.class);
+    private static final Scenario SUPPLY_DROPS = new Scenario("supply_drops", UniversalMaterial.CHEST, SupplyDropsListener.class);
 
     @Override
     public void onEnable() {
@@ -96,6 +108,15 @@ public final class UHCChampions extends JavaPlugin {
                 SpectatorFix.run();
             }
         }.runTaskTimer(this, 20, 10);
+
+        EARLY_SURFACE.setInfo(new Scenario.Info("Early Surface", EarlySurfaceListener.getDescription()));
+        GAMBLERS_DREAM.setInfo(new Scenario.Info("Gambler's Dream", GamblersDreamListener.getDescription()));
+        KING_FISHER.setInfo(new Scenario.Info("King Fisher", KingFisherListener.getDescription()));
+        SUPPLY_DROPS.setInfo(new Scenario.Info("Supply Drops", SupplyDropsListener.getDescription()));
+        GameManager.getGameManager().getScenarioManager().registerScenario(EARLY_SURFACE);
+        GameManager.getGameManager().getScenarioManager().registerScenario(GAMBLERS_DREAM);
+        GameManager.getGameManager().getScenarioManager().registerScenario(KING_FISHER);
+        GameManager.getGameManager().getScenarioManager().registerScenario(SUPPLY_DROPS);
     }
 
     @Override

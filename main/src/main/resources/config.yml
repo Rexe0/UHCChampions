@@ -111,6 +111,9 @@ items:
     name: "Flask of Ichor"
     # Amplfiier of instant damage effect.
     amplifier: 1
+  # Strong fishing rod
+  kings-rod:
+    name: "King's Rod"
   # A bow which can switch between punch, poison and lightning
   modular-bow:
     name: "Modular Bow"

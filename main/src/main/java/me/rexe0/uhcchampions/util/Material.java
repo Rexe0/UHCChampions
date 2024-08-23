@@ -3,6 +3,7 @@ package me.rexe0.uhcchampions.util;
 public enum Material {
     PLAYER_HEAD("SKULL_ITEM", "PLAYER_HEAD", (short) 3),
     WITHER_SKELETON_SKULL("SKULL_ITEM", "WITHER_SKELETON_SKULL", (short) 1),
+    SPAWNER("MOB_SPAWNER", "SPAWNER", (short) 1),
     NETHER_WART("NETHER_WARTS", "NETHER_WART");
 
     private final String name8, name19;

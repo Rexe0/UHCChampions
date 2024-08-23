@@ -55,20 +55,14 @@ public class DiceOfGod implements Listener {
 
         if (!UHCChampions.isItem(result, loader.getItemName(id))) return;
 
-        int i = 0;
-        ItemStack item;
-        do {
-            item = getRandomItem();
-            i++;
-        } while (item == null && i < 5);
-
+        ItemStack item = generateRandomItem();
         if (item == null)
             e.getWhoClicked().sendMessage(ChatColor.RED+"ERROR: Your Dice of God failed to craft.");
 
         e.getInventory().setResult(item);
     }
 
-    private ItemStack getRandomItem() {
+    private static ItemStack getRandomItem() {
         String name = CRAFT_LIST[random.nextInt(CRAFT_LIST.length)];
 
         for (Craft craft : CraftsManager.getCrafts()) {
@@ -80,5 +74,16 @@ public class DiceOfGod implements Listener {
             return item;
         }
         return null;
+    }
+
+    public static ItemStack generateRandomItem() {
+
+        int i = 0;
+        ItemStack item;
+        do {
+            item = getRandomItem();
+            i++;
+        } while (item == null && i < 5);
+        return item;
     }
 }
