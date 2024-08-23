@@ -32,15 +32,22 @@ public class VampireFang implements Listener {
         org.bukkit.potion.PotionEffectType regen = VersionUtils.getVersionUtils().getPotionEffectType(PotionEffectType.REGENERATION);
         if (entity.hasPotionEffect(regen)) {
             PotionEffect effect = VersionUtils.getVersionUtils().getPotionEffect(entity, PotionEffectType.REGENERATION);
-            damager.addPotionEffect(new PotionEffect(regen, effect.getDuration(), effect.getAmplifier()), true);
             entity.removePotionEffect(regen);
+            if (!damager.hasPotionEffect(regen)
+                    || VersionUtils.getVersionUtils().getPotionEffect(damager, PotionEffectType.REGENERATION).getAmplifier() <= effect.getAmplifier()) {
+                damager.addPotionEffect(new PotionEffect(regen, effect.getDuration(), effect.getAmplifier()), true);
+            }
         }
 
         org.bukkit.potion.PotionEffectType absorption = VersionUtils.getVersionUtils().getPotionEffectType(PotionEffectType.ABSORPTION);
         if (entity.hasPotionEffect(absorption)) {
             PotionEffect effect = VersionUtils.getVersionUtils().getPotionEffect(entity, PotionEffectType.ABSORPTION);
-            damager.addPotionEffect(new PotionEffect(absorption, effect.getDuration(), effect.getAmplifier()), true);
             entity.removePotionEffect(absorption);
+
+            if (!damager.hasPotionEffect(absorption)
+                    || VersionUtils.getVersionUtils().getPotionEffect(damager, PotionEffectType.ABSORPTION).getAmplifier() <= effect.getAmplifier()) {
+                damager.addPotionEffect(new PotionEffect(absorption, effect.getDuration(), effect.getAmplifier()), true);
+            }
         }
     }
 }
